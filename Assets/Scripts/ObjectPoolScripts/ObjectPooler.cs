@@ -62,7 +62,7 @@ namespace KeepItAlive
             objectToSpawn.transform.rotation = rotation;
 
 
-            IPooledObject pooledObj = objectToSpawn.GetComponent<IPooledObject>();
+            objectToSpawn.TryGetComponent<IPooledObject>(out IPooledObject pooledObj);
 
             pooledObj?.OnObjectSpawn();
 
@@ -70,6 +70,11 @@ namespace KeepItAlive
             _poolDictionary[tag].Enqueue(objectToSpawn);
 
             return objectToSpawn;
+        }
+
+        public void ReturnToPool(string tag, GameObject gameObject)
+        {
+            _poolDictionary[tag].Dequeue();
         }
 
         [System.Serializable]

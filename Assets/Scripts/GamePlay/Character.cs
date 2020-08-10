@@ -27,8 +27,6 @@ namespace KeepItAlive
 
         [SerializeField] private LayerMask _whatIsGround;
 
-        private Vector3 theScale;
-
         private bool _isGrounded;
         private bool _canMove;
         private bool _isFacingRigtht = true;
@@ -74,11 +72,6 @@ namespace KeepItAlive
             return _canMove;
         }
 
-        public void Jump(float jumpForce)
-        {
-            _characterRigidbody.velocity = new Vector2(_characterRigidbody.velocity.x, jumpForce);
-        }
-
         public void Move(float direction, float speed)
         {
             _characterRigidbody.velocity = new Vector2(direction * speed, _characterRigidbody.velocity.y);
@@ -91,17 +84,20 @@ namespace KeepItAlive
             {
                 FlipCharacter();
             }
-            _characterAnimation.SetFloat("Speed", Mathf.Abs(_characterRigidbody.velocity.x));
+            
         }
 
         public void FlipCharacter()
         {
             _isFacingRigtht = !_isFacingRigtht;
 
-            theScale = transform.localScale;
-            theScale.x *= -1;
-            transform.localScale = theScale;
+            transform.Rotate(0.0f, 180.0f, 0.0f);
 
+        }
+
+        public void Jump(float jumpForce)
+        {
+            _characterRigidbody.velocity = Vector2.up * jumpForce;
         }
 
         #endregion
