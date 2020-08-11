@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 namespace KeepItAlive
 {
     public class Hunter : MonoBehaviour, ITakeDamage
@@ -11,7 +12,7 @@ namespace KeepItAlive
 
         public GameObject Bullet;
 
-        public Transform ShootPoint;
+        public Transform ShootPoint, CastSpellPoint;
         #endregion
 
         #region Private Variable
@@ -53,6 +54,11 @@ namespace KeepItAlive
                 _canMove = true;
             }
 
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                CastSpell();
+            }
+
             if (Input.GetButtonDown("Jump") && HunterCharacter.IsGrounded() == true)
             {
                 HunterCharacter.Jump(HunterCharacter.JumpForce);
@@ -85,6 +91,13 @@ namespace KeepItAlive
 
             //Instantiate(Bullet, ShootPoint.position, ShootPoint.rotation);
             _objectPooler.SpawnFromPool("Bullet", ShootPoint.position, ShootPoint.rotation);
+        }
+
+        public void CastSpell()
+        {
+            HunterCharacter.CharacterAnimator.SetTrigger("Shoot");
+
+            _objectPooler.SpawnFromPool("Nightmare", CastSpellPoint.position, CastSpellPoint.rotation);
         }
     }
 }

@@ -12,6 +12,9 @@ GameObject:
   - component: {fileID: 5211330948543581789}
   - component: {fileID: 5211330948543581788}
   - component: {fileID: 5211330948543581787}
+  - component: {fileID: -1349611562173497867}
+  - component: {fileID: -5718446702759405581}
+  - component: {fileID: -7476318057233753159}
   m_Layer: 0
   m_Name: HellPet
   m_TagString: Untagged
@@ -129,3 +132,53 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.18, y: 0.73}
   m_EdgeRadius: 0
+--- !u!114 &-1349611562173497867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5211330948543581791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b90ec3e3c678f2458f5e00d86802114, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 20
+  _damage: 20
+  _damageVariance: 6
+  _projectileRigidbody: {fileID: -5718446702759405581}
+--- !u!50 &-5718446702759405581
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5211330948543581791}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &-7476318057233753159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5211330948543581791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea0dca7e23abe3443828a3ebb2ccf57f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NightmareProjectile: {fileID: -1349611562173497867}
