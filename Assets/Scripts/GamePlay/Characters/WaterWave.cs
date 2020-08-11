@@ -22,9 +22,9 @@ namespace KeepItAlive
 
 
         // Update is called once per frame
-        void Update()
+        private void FixedUpdate()
         {
-
+            WaterWaveProjectile.ProjectileRigidbody.velocity = _direction * WaterWaveProjectile.Speed;
         }
     }
 
