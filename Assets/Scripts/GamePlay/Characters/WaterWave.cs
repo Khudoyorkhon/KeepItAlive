@@ -14,17 +14,22 @@ namespace KeepItAlive
         #region Private Variable
         private Vector3 _direction;
 
+        #endregion
+
         public void OnObjectSpawn()
         {
             _direction = transform.right;
         }
-        #endregion
-
-
         // Update is called once per frame
         private void FixedUpdate()
         {
             WaterWaveProjectile.ProjectileRigidbody.velocity = _direction * WaterWaveProjectile.Speed;
+        }
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.TryGetComponent<ITakeDamage>(out ITakeDamage takeDamage))
+                takeDamage?.TakeDamage(Random.Range(WaterWaveProjectile.Damage - WaterWaveProjectile.DamageVariance, WaterWaveProjectile.Damage + WaterWaveProjectile.DamageVariance));
         }
     }
 
