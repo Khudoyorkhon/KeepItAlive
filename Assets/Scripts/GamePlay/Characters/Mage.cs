@@ -22,9 +22,7 @@ namespace KeepItAlive
         #region Private Variables
         private int _currentHealth;
 
-        private Tween _tween;
-
-        private Vector3 _theScale;
+        private float _theScale;
 
         private float _xDirection;
 
@@ -86,22 +84,25 @@ namespace KeepItAlive
 
         private IEnumerator ArcaneExplosion()
         {
-            _theScale = new Vector3(1f, 1f, 1f);
-            _tween.Kill();
+            yield return new WaitForSeconds(0.0f);
+            _theScale = 1f;
+
             MagicBarrier.transform.DOScale(_theScale, 1f);
-            MagicBarrier.GetComponent<SpriteRenderer>().DOFade(0f, 1.2f);
+            MagicBarrier.GetComponent<SpriteRenderer>().DOFade(0f, 1.2f).OnComplete(() =>
+                { 
+                    StartCoroutine(ArcaneExplosionCooldown(ArcaneExlosionCooldown));
+                });
 
-            yield return new WaitForSeconds(1.5f);
-
-            yield return StartCoroutine(ArcaneExplosionCooldown(ArcaneExlosionCooldown));
+           
         }
 
         private IEnumerator ArcaneExplosionCooldown(float time)
         {
+            
             yield return new WaitForFixedUpdate();
 
-            _theScale = new Vector3(0.13f, 0.13f, 0.13f);
-            _tween.Kill();
+            _theScale = 0.13f;
+
             MagicBarrier.transform.DOScale(_theScale, time);
             MagicBarrier.GetComponent<SpriteRenderer>().DOFade(1f, time);
         }
