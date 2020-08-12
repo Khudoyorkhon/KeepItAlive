@@ -11,7 +11,7 @@ namespace KeepItAlive
         #region Public Variable
         public Character MageCharacter;
 
-        public GameObject MagicBarrier;
+        public GameObject MagicBarrier, IceField;
 
         public Transform CastSpellPoint;
 
@@ -34,7 +34,7 @@ namespace KeepItAlive
         private void Start()
         {
             _currentHealth = MageCharacter.MaxHealth;
-            StartCoroutine(ArcaneExplosionCooldown(ArcaneExlosionCooldown));
+            ArcaneExplosionCooldown(ArcaneExlosionCooldown, MagicBarrier);
         }
 
 
@@ -63,7 +63,7 @@ namespace KeepItAlive
             {
                 if (Input.GetMouseButtonDown(0))
                 {
-                    StartCoroutine(ArcaneExplosion());
+                    ArcaneExplosion(MagicBarrier,1f);
                     _nextArcaneExlosion = 0f;
                 }
             }
@@ -82,29 +82,33 @@ namespace KeepItAlive
         }
 
 
-        private IEnumerator ArcaneExplosion()
-        {
-            yield return new WaitForSeconds(0.0f);
-            _theScale = 1f;
-
-            MagicBarrier.transform.DOScale(_theScale, 1f);
-            MagicBarrier.GetComponent<SpriteRenderer>().DOFade(0f, 1.2f).OnComplete(() =>
-                { 
-                    StartCoroutine(ArcaneExplosionCooldown(ArcaneExlosionCooldown));
-                });
-
-           
-        }
-
-        private IEnumerator ArcaneExplosionCooldown(float time)
+        private void ArcaneExplosion(GameObject gameObject, float scale)
         {
             
-            yield return new WaitForFixedUpdate();
+            ScaleBigger(gameObject, scale);
 
-            _theScale = 0.13f;
+        }
 
-            MagicBarrier.transform.DOScale(_theScale, time);
-            MagicBarrier.GetComponent<SpriteRenderer>().DOFade(1f, time);
+        private void ArcaneExplosionCooldown(float time, GameObject gameObject)
+        {
+            float scale = 0.13f;
+
+            ScaleSmall(scale, gameObject, time);
+        }
+
+        private void ScaleBigger(GameObject gameObject, float scale)
+        {
+            gameObject.transform.DOScale(scale, 1f);
+            gameObject.GetComponent<SpriteRenderer>().DOFade(0f, 1.2f).OnComplete(() =>
+            {
+                ArcaneExplosionCooldown(ArcaneExlosionCooldown, gameObject);
+            });
+        }
+
+        private void ScaleSmall(float scale, GameObject gameObject, float time)
+        {
+            gameObject.transform.DOScale(scale, time);
+            gameObject.GetComponent<SpriteRenderer>().DOFade(1f, time);
         }
 
         public void TakeDamage(int damage)
