@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using DG.Tweening;
 
 namespace KeepItAlive
@@ -16,7 +14,7 @@ namespace KeepItAlive
         public Transform CastSpellPoint;
 
         public float ArcaneExlosionCooldown = 5f;
-        public float IceFieldCoolDown = 2;
+
 
         public ArcaneMagic arcaneMagic;
 
@@ -38,6 +36,7 @@ namespace KeepItAlive
         private void Start()
         {
             _currentHealth = MageCharacter.MaxHealth;
+
             ArcaneExplosionCooldown(ArcaneExlosionCooldown, MagicBarrier);
         }
 
@@ -103,6 +102,7 @@ namespace KeepItAlive
         private void ScaleBigger(GameObject gameObject, float scale, float time)
         {
             arcaneMagic._arcaneMagicCollider2D.enabled = true;
+
             gameObject.transform.DOScale(scale, 1f);
             gameObject.GetComponent<SpriteRenderer>().DOFade(0f, 1.2f).OnComplete(() =>
             {
@@ -114,6 +114,7 @@ namespace KeepItAlive
         private void ScaleSmall(float scale, GameObject gameObject, float time)
         {
             arcaneMagic._arcaneMagicCollider2D.enabled = false;
+
             gameObject.transform.DOScale(scale, time);
             gameObject.GetComponent<SpriteRenderer>().DOFade(1f, time);
         }

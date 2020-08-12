@@ -14,6 +14,8 @@ namespace KeepItAlive
         #region Public Variable
         public List<Pool> pools;
 
+        public Transform Target;
+
         public Transform PooldeObjParent => _pooledObjParent;
         #endregion
         #region Singelton
@@ -66,6 +68,9 @@ namespace KeepItAlive
 
             pooledObj?.OnObjectSpawn();
 
+            objectToSpawn.TryGetComponent<Enemy>(out Enemy enemy);
+
+            enemy.Target.position = Target.position;
 
             _poolDictionary[tag].Enqueue(objectToSpawn);
 
