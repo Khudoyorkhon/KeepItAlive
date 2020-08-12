@@ -2,10 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IceField : MonoBehaviour
+namespace KeepItAlive
 {
-    private void OnTriggerEnter2D(Collider2D collision)
+    public class IceField : MonoBehaviour
     {
-        print(collision.name);
+        [SerializeField] private float _freezTime;
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.TryGetComponent<Enemy>(out Enemy enemy))
+            {
+                enemy?.Stop();
+                StartCoroutine(Timer());
+                enemy?.Move();
+            }                
+        }
+
+        private IEnumerator Timer()
+        {
+            yield return new WaitForSeconds(_freezTime);
+        }
     }
 }
+

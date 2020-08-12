@@ -11,11 +11,14 @@ namespace KeepItAlive
         #region Public Variable
         public Character MageCharacter;
 
-        public GameObject MagicBarrier, IceField;
+        public GameObject MagicBarrier;
 
         public Transform CastSpellPoint;
 
         public float ArcaneExlosionCooldown = 5f;
+        public float IceFieldCoolDown = 2;
+
+        public ArcaneMagic arcaneMagic;
 
         #endregion
 
@@ -29,6 +32,7 @@ namespace KeepItAlive
         private float _nextArcaneExlosion = 0f;
 
         private bool canCast = false;
+
         #endregion
 
         private void Start()
@@ -63,7 +67,7 @@ namespace KeepItAlive
             {
                 if (Input.GetMouseButtonDown(0))
                 {
-                    ArcaneExplosion(MagicBarrier,1f);
+                    ArcaneExplosion(MagicBarrier, 1f);
                     _nextArcaneExlosion = 0f;
                 }
             }
@@ -85,7 +89,7 @@ namespace KeepItAlive
         private void ArcaneExplosion(GameObject gameObject, float scale)
         {
             
-            ScaleBigger(gameObject, scale);
+            ScaleBigger(gameObject, scale, ArcaneExlosionCooldown);
 
         }
 
@@ -96,17 +100,20 @@ namespace KeepItAlive
             ScaleSmall(scale, gameObject, time);
         }
 
-        private void ScaleBigger(GameObject gameObject, float scale)
+        private void ScaleBigger(GameObject gameObject, float scale, float time)
         {
+            arcaneMagic._arcaneMagicCollider2D.enabled = true;
             gameObject.transform.DOScale(scale, 1f);
             gameObject.GetComponent<SpriteRenderer>().DOFade(0f, 1.2f).OnComplete(() =>
             {
-                ArcaneExplosionCooldown(ArcaneExlosionCooldown, gameObject);
+                ArcaneExplosionCooldown(time, gameObject);
             });
-        }
+        }        
+
 
         private void ScaleSmall(float scale, GameObject gameObject, float time)
         {
+            arcaneMagic._arcaneMagicCollider2D.enabled = false;
             gameObject.transform.DOScale(scale, time);
             gameObject.GetComponent<SpriteRenderer>().DOFade(1f, time);
         }

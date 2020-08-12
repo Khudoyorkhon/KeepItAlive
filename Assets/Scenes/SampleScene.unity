@@ -200,6 +200,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c804efc72ad38b43976bf737154ad59, type: 3}
+--- !u!4 &20094799 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1571974561088049584, guid: 1ac8fc1441e20674db6fc04cbd9598a5,
+    type: 3}
+  m_PrefabInstance: {fileID: 47877691}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &47877691
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -267,10 +273,40 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mage
       objectReference: {fileID: 0}
+    - target: {fileID: 1571974561487407011, guid: 1ac8fc1441e20674db6fc04cbd9598a5,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1571974561487407014, guid: 1ac8fc1441e20674db6fc04cbd9598a5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4298788888265079913, guid: 1ac8fc1441e20674db6fc04cbd9598a5,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6926671766471134009, guid: 1ac8fc1441e20674db6fc04cbd9598a5,
         type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.3
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6926671766471134009, guid: 1ac8fc1441e20674db6fc04cbd9598a5,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6926671766471134009, guid: 1ac8fc1441e20674db6fc04cbd9598a5,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7842017463372021134, guid: 1ac8fc1441e20674db6fc04cbd9598a5,
+        type: 3}
+      propertyPath: _freezTime
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8466199399620589576, guid: 1ac8fc1441e20674db6fc04cbd9598a5,
         type: 3}
@@ -373,7 +409,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f7421a16b834a9458418ab1e22c7566, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Target: {fileID: 1967779878}
+  Target: {fileID: 20094799}
   Speed: 100
   nextWayPointDistance: 3
   currentWayPoint: 0
@@ -769,12 +805,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &1967779878 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7845506158122880636, guid: 3c804efc72ad38b43976bf737154ad59,
-    type: 3}
-  m_PrefabInstance: {fileID: 17052401}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2020085350
 GameObject:
   m_ObjectHideFlags: 0
@@ -819,7 +849,7 @@ MonoBehaviour:
   manualDebugFloorRoof: 0
   showSearchTree: 0
   unwalkableNodeDebugSize: 0.3
-  logPathResults: 1
+  logPathResults: 0
   maxNearestNodeDistance: 100
   scanOnStartup: 1
   fullGetNearestSearch: 0

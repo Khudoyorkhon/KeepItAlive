@@ -21,6 +21,7 @@ namespace KeepItAlive
         [SerializeField] private bool _reachEndPoint = false;
         [SerializeField] private bool _flyEnemy = false;
         [SerializeField] private bool _groundEnemy = false;
+                    
 
         [SerializeField] private Seeker seeker = null;
         [SerializeField] private Rigidbody2D _enemyRigidbody = null;
@@ -28,6 +29,10 @@ namespace KeepItAlive
         private float _distance = 0f;
 
         private Vector2 _direction;
+
+        private bool canMove = true;
+
+        public Rigidbody2D EnemyRigidbody { get => _enemyRigidbody; set => _enemyRigidbody = value; }
         #endregion
         private void Start()
         {
@@ -50,45 +55,61 @@ namespace KeepItAlive
         }
         private void FixedUpdate()
         {
-            if (path == null)
-                return;
-
-            if(currentWayPoint >= path.vectorPath.Count)
+            if(canMove == true)
             {
-                _reachEndPoint = true;
-                return;
+                if (path == null)
+                    return;
+
+                if (currentWayPoint >= path.vectorPath.Count)
+                {
+                    _reachEndPoint = true;
+                    return;
+                }
+                else
+                {
+                    _reachEndPoint = false;
+                }
+
+                _direction = ((Vector2)path.vectorPath[currentWayPoint] - _enemyRigidbody.position).normalized;
+
+                if (_flyEnemy)
+                {
+                    _enemyRigidbody.velocity = _direction * Speed * Time.deltaTime;
+                }
+
+                if (_groundEnemy)
+                {
+                    _enemyRigidbody.velocity = new Vector2(_direction.x * Speed * Time.deltaTime, _enemyRigidbody.velocity.y);
+                }
+
+
+                _distance = Vector2.Distance(_enemyRigidbody.position, path.vectorPath[currentWayPoint]);
+
+                if (_distance < nextWayPointDistance)
+                {
+                    currentWayPoint++;
+                }
+
             }
-            else
-            {
-                _reachEndPoint = false;
-            }
-
-            _direction = ((Vector2)path.vectorPath[currentWayPoint] - _enemyRigidbody.position).normalized;
-
-            if (_flyEnemy)
-            {
-                _enemyRigidbody.velocity = _direction * Speed * Time.deltaTime;
-            }
-
-            if (_groundEnemy)
-            {
-                _enemyRigidbody.velocity = new Vector2(_direction.x * Speed * Time.deltaTime, _enemyRigidbody.velocity.y);
-            }
-            
-
-            _distance = Vector2.Distance(_enemyRigidbody.position, path.vectorPath[currentWayPoint]);
-
-            if(_distance < nextWayPointDistance)
-            {
-                currentWayPoint++;
-            }
-
         }
+
+
         public void TakeDamage(int damage)
         {
-            print(damage);     
+            print(damage);
         }
+        public void Stop()
+        {
+            canMove = false;
+        }
+
+        public void Move()
+        {
+            canMove = true;
+        }
+
     }
+
 }
 
 

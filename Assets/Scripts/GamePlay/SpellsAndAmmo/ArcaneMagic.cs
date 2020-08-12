@@ -2,14 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ArcaneMagic : MonoBehaviour
+namespace KeepItAlive
 {
-    [SerializeField] private int _damage = 200;
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    public class ArcaneMagic : MonoBehaviour
     {
-        if (collision.TryGetComponent<ITakeDamage>(out ITakeDamage takeDamage))
-            takeDamage?.TakeDamage(_damage);
-    }
+        public Mage mage;
+        public CircleCollider2D _arcaneMagicCollider2D = null;
 
+        [SerializeField] private int _damage = 200;
+        
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.TryGetComponent<ITakeDamage>(out ITakeDamage takeDamage))
+                takeDamage?.TakeDamage(_damage);
+        }
+
+    }
 }
+
