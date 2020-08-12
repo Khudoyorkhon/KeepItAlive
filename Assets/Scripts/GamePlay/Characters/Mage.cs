@@ -36,7 +36,7 @@ namespace KeepItAlive
         private void Start()
         {
             _currentHealth = MageCharacter.MaxHealth;
-            StartCoroutine(Fading(ArcaneExlosionCooldown));
+            StartCoroutine(ArcaneExplosionCooldown(ArcaneExlosionCooldown));
         }
 
 
@@ -94,12 +94,6 @@ namespace KeepItAlive
             yield return new WaitForSeconds(1.5f);
 
             yield return StartCoroutine(ArcaneExplosionCooldown(ArcaneExlosionCooldown));
-        }
-
-        private IEnumerator Fading(float time)
-        {
-            yield return new WaitForFixedUpdate();
-            MagicBarrier.GetComponent<SpriteRenderer>().DOFade(1f, time);
         }
 
         private IEnumerator ArcaneExplosionCooldown(float time)
