@@ -217,6 +217,11 @@ PrefabInstance:
       propertyPath: HealthBar
       value: 
       objectReference: {fileID: 1683869674}
+    - target: {fileID: 1571974561088049582, guid: 1ac8fc1441e20674db6fc04cbd9598a5,
+        type: 3}
+      propertyPath: IsMage
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1571974561088049584, guid: 1ac8fc1441e20674db6fc04cbd9598a5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -639,6 +644,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Deamon
       objectReference: {fileID: 0}
+    - target: {fileID: 787495152585555360, guid: 6c4095fbf626709479c405a0f4bc58ab,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 787495152585555362, guid: 6c4095fbf626709479c405a0f4bc58ab,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -697,28 +707,18 @@ PrefabInstance:
     - target: {fileID: 787495152585555363, guid: 6c4095fbf626709479c405a0f4bc58ab,
         type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 1.3700001
+      value: 1.34
       objectReference: {fileID: 0}
     - target: {fileID: 787495152585555363, guid: 6c4095fbf626709479c405a0f4bc58ab,
         type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 1.2504579
+      value: 1.24
       objectReference: {fileID: 0}
     - target: {fileID: 787495152585555367, guid: 6c4095fbf626709479c405a0f4bc58ab,
         type: 3}
       propertyPath: Target
       value: 
       objectReference: {fileID: 20094799}
-    - target: {fileID: 787495152585555367, guid: 6c4095fbf626709479c405a0f4bc58ab,
-        type: 3}
-      propertyPath: AttackRange
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 787495152585555367, guid: 6c4095fbf626709479c405a0f4bc58ab,
-        type: 3}
-      propertyPath: AttackRate
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 787495153551152012, guid: 6c4095fbf626709479c405a0f4bc58ab,
         type: 3}
       propertyPath: m_LocalPosition.y

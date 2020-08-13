@@ -155,12 +155,14 @@ MonoBehaviour:
   Target: {fileID: 0}
   AttackPoint: {fileID: 787495153551152012}
   AttackDistance: 5
-  AttackRange: 0.5
+  AttackRange: 0.2
+  Health: 0
   PlayerLayer:
     serializedVersion: 2
     m_Bits: 2048
   EnemyAnimator: {fileID: 787495152585555364}
   Damage: 20
+  AttackRate: 5
 --- !u!50 &787495152585555366
 Rigidbody2D:
   serializedVersion: 4

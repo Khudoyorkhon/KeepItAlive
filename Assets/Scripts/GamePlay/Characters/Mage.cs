@@ -3,7 +3,7 @@ using DG.Tweening;
 
 namespace KeepItAlive
 {
-    public class Mage : MonoBehaviour, ITakeDamage, IAttack
+    public class Mage : MonoBehaviour, IAttack
     {
 
         #region Public Variable
@@ -120,21 +120,7 @@ namespace KeepItAlive
             gameObject.GetComponent<SpriteRenderer>().DOFade(1f, time);
         }
 
-        public void TakeDamage(int damage)
-        {
-            MageCharacter.CharacterAnimator.SetTrigger("TakeDamage");
 
-            _currentHealth -= damage;
-
-            HealthBar.SetHealth(_currentHealth);
-
-            if (_currentHealth <= 0)
-            {
-                print("Die");
-            }
-
-            print(damage);
-        }
 
         public void Attack(int damage)
         {

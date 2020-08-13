@@ -31,10 +31,11 @@ namespace KeepItAlive
         private bool _canMove;
         private bool _isFacingRigtht = true;
 
+        private int _currentHealth;
         #endregion
 
         #region public Varible
-
+        HealthBar HealthBar;
         public int DamageVariance => _damageVariance;
         public int MaxHealth => _maxHealth;
         public int BaseDamage => _baseDamage;
@@ -45,7 +46,7 @@ namespace KeepItAlive
 
         public Animator CharacterAnimator => _characterAnimation;
 
-
+        public bool IsMage, IsHunter, IsRougue;
 
         #endregion
 
@@ -104,7 +105,34 @@ namespace KeepItAlive
 
         #region Private Functions
 
+        public void TakeDamage(int damage)
+        {
+            if (IsMage)
+            {
+                _characterAnimation.SetTrigger("TakeDamage");
+            }
 
+            if (IsHunter)
+            {
+
+            }
+
+            if (IsRougue)
+            {
+                _characterAnimation.SetTrigger("Hurt");
+            }
+
+            _currentHealth -= damage;
+
+            HealthBar.SetHealth(_currentHealth);
+
+            if (_currentHealth <= 0)
+            {
+                print("Die");
+            }
+
+            print(damage);
+        }
         #endregion
 
     }
