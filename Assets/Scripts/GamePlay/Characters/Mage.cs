@@ -15,6 +15,7 @@ namespace KeepItAlive
 
         public float ArcaneExlosionCooldown = 5f;
 
+        public HealthBar HealthBar;
 
         public ArcaneMagic arcaneMagic;
 
@@ -36,7 +37,7 @@ namespace KeepItAlive
         private void Start()
         {
             _currentHealth = MageCharacter.MaxHealth;
-
+            HealthBar.SetMaxHealth(MageCharacter.MaxHealth);
             ArcaneExplosionCooldown(ArcaneExlosionCooldown, MagicBarrier);
         }
 
@@ -122,13 +123,23 @@ namespace KeepItAlive
         public void TakeDamage(int damage)
         {
             MageCharacter.CharacterAnimator.SetTrigger("TakeDamage");
-            throw new System.NotImplementedException();
+
+            _currentHealth -= damage;
+
+            HealthBar.SetHealth(_currentHealth);
+
+            if (_currentHealth <= 0)
+            {
+                print("Die");
+            }
+
+            print(damage);
         }
 
         public void Attack(int damage)
         {
             MageCharacter.CharacterAnimator.SetTrigger("Attack");
-            throw new System.NotImplementedException();
+            
         }
     }
 }

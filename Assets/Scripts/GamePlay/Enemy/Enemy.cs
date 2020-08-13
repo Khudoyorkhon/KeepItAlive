@@ -6,7 +6,7 @@ using System;
 
 namespace KeepItAlive
 {
-    public class Enemy : MonoBehaviour, ITakeDamage, IAttack
+    public class Enemy : MonoBehaviour, ITakeDamage, IAttack, IPooledObject
     {
         #region Private Variable
 
@@ -26,28 +26,47 @@ namespace KeepItAlive
         [SerializeField] private Rigidbody2D _enemyRigidbody = null;
 
         private float _distance = 0f;
-
         private float _distanceToTarget = 0;
+        private float _nextAttackTime;
+        private float _currentHealth;
 
         private Vector2 _direction;
 
+        private Vector3 _scale;
+
+        private bool attack = false;
         #endregion
 
         #region Public Varibale
-        public Transform Target = null;
+        public Transform Target, AttackPoint;
 
-        public float AttackDistance = 8f;
+        public float AttackDistance = 8f, AttackRange, Health;
+
+        public LayerMask PlayerLayer;
         public Rigidbody2D EnemyRigidbody { get => _enemyRigidbody; set => _enemyRigidbody = value; }
 
         public Animator EnemyAnimator;
 
         public int Damage;
+        public float AttackRate;
         #endregion
+
         private void Start()
         {
+            _currentHealth = Health;
+            attack = false;
+            _scale = transform.localScale;
             InvokeRepeating("UpdatePath", 0f, 0.5f);
-            _distanceToTarget = transform.position.x;
+
         }
+        public void OnObjectSpawn()
+        {
+            _currentHealth = Health;
+            attack = false;
+            _scale = transform.localScale;
+            InvokeRepeating("UpdatePath", 0f, 0.5f);
+        }
+ 
 
         private void UpdatePath()
         {
@@ -57,6 +76,7 @@ namespace KeepItAlive
 
         private void FixedUpdate()
         {
+            UpdateAnimtion();
             FindTarget();
         }
 
@@ -95,25 +115,45 @@ namespace KeepItAlive
                 _enemyRigidbody.velocity = new Vector2(_direction.x * Speed * Time.deltaTime, _enemyRigidbody.velocity.y);
             }
 
+            CheckDistance();
 
             _distance = Vector2.Distance(_enemyRigidbody.position, path.vectorPath[currentWayPoint]);
 
-            if (_distance < nextWayPointDistance)
+            if(attack == false)
             {
-                currentWayPoint++;
+                if (_distance < nextWayPointDistance)
+                {
+                    currentWayPoint++;
+                }
             }
 
 
-            CheckDistance();
-
-            if (_distanceToTarget < AttackDistance)
+            _nextAttackTime += Time.deltaTime;
+            if (_distanceToTarget < AttackDistance && _nextAttackTime >= AttackRate)
             {
+                attack = true;
                 Attack(UnityEngine.Random.Range(Damage - 5, Damage + 5));
+                _nextAttackTime = 0;
             }
             else
             {
+                attack = false;
                 CheckDistance();
             }
+
+            if(_enemyRigidbody.velocity.x >= 0.01f)
+            {
+                transform.localScale = new Vector3(-_scale.x, _scale.y, _scale.z);
+            }
+            else if(_enemyRigidbody.velocity.x <= -0.01f)
+            {
+                transform.localScale = new Vector3(_scale.x, _scale.y, _scale.z);
+            }
+        }
+
+        private void UpdateAnimtion()
+        {
+            EnemyAnimator.SetFloat("xVelocity", _enemyRigidbody.velocity.x);
         }
 
         private void CheckDistance()
@@ -124,13 +164,35 @@ namespace KeepItAlive
 
         public void TakeDamage(int damage)
         {
-            print(damage);
+            _currentHealth -= damage;
+
+            if(_currentHealth <= 0)
+            {
+                this.gameObject.SetActive(false);
+            }
         }
 
         public void Attack(int damage)
         {
             EnemyAnimator.SetTrigger("Attack");
+
+            Collider2D[] hitEnemy = Physics2D.OverlapCircleAll(AttackPoint.position, AttackRange, PlayerLayer);
+
+            foreach (Collider2D detectedEnemy in hitEnemy)
+            {
+                detectedEnemy.TryGetComponent<ITakeDamage>(out ITakeDamage takeDamage);
+                takeDamage?.TakeDamage(damage);
+            }
+
         }
+        private void OnDrawGizmosSelected()
+        {
+            if (AttackPoint == null)
+                return;
+
+            Gizmos.DrawWireSphere(AttackPoint.position, AttackRange);
+        }
+
     }
 
 }

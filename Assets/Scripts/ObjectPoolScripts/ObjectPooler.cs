@@ -16,37 +16,45 @@ namespace KeepItAlive
 
         public Transform Target;
 
+        public bool EnemyPool;
+
         public Transform PooldeObjParent => _pooledObjParent;
         #endregion
         #region Singelton
 
         public static ObjectPooler Instance;
 
+
+
+        #endregion
+
         private void Awake()
         {
             Instance = this;
-        }
 
-        #endregion
-        void Start()
-        {
             _poolDictionary = new Dictionary<string, Queue<GameObject>>();
 
-            foreach(Pool pool in pools)
+            foreach (Pool pool in pools)
             {
                 Queue<GameObject> objectPool = new Queue<GameObject>();
 
-                for(int i=0;i < pool.size; i++)
+                for (int i = 0; i < pool.size; i++)
                 {
                     GameObject obj = Instantiate(pool.prefab);
                     obj.transform.SetParent(_pooledObjParent);
+
+                    if (EnemyPool)
+                    {
+                        obj.TryGetComponent<Enemy>(out Enemy enemy);
+                        enemy.Target = Target;
+                    }
+
                     obj.SetActive(false);
                     objectPool.Enqueue(obj);
                 }
 
                 _poolDictionary.Add(pool.tag, objectPool);
             }
-
         }
 
         public GameObject SpawnFromPool(string tag, Vector3 position, Quaternion rotation)
@@ -63,23 +71,15 @@ namespace KeepItAlive
             objectToSpawn.transform.position = position;
             objectToSpawn.transform.rotation = rotation;
 
-
             objectToSpawn.TryGetComponent<IPooledObject>(out IPooledObject pooledObj);
 
             pooledObj?.OnObjectSpawn();
 
-            objectToSpawn.TryGetComponent<Enemy>(out Enemy enemy);
 
-            enemy.Target.position = Target.position;
 
             _poolDictionary[tag].Enqueue(objectToSpawn);
 
             return objectToSpawn;
-        }
-
-        public void ReturnToPool(string tag, GameObject gameObject)
-        {
-            _poolDictionary[tag].Dequeue();
         }
 
         [System.Serializable]
@@ -90,9 +90,5 @@ namespace KeepItAlive
             public int size;
         }
     }
-
-    
-
-
 }
 
