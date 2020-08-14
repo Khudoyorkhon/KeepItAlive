@@ -98,6 +98,7 @@ namespace KeepItAlive
             foreach(Collider2D detectedEnemy in hitEnemy)
             {
                 detectedEnemy.TryGetComponent<ITakeDamage>(out ITakeDamage takeDamage);
+    
                     takeDamage?.TakeDamage(damage);
             }
 

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 787495152585555367}
   - component: {fileID: 787495152585555366}
   - component: {fileID: 787495152585555365}
+  - component: {fileID: 5493909444125509245}
   m_Layer: 0
   m_Name: Deamon
   m_TagString: Untagged
@@ -156,13 +157,13 @@ MonoBehaviour:
   AttackPoint: {fileID: 787495153551152012}
   AttackDistance: 5
   AttackRange: 0.2
-  Health: 0
   PlayerLayer:
     serializedVersion: 2
     m_Bits: 2048
   EnemyAnimator: {fileID: 787495152585555364}
-  Damage: 20
   AttackRate: 5
+  Health: 100
+  Damage: 20
 --- !u!50 &787495152585555366
 Rigidbody2D:
   serializedVersion: 4
@@ -212,6 +213,19 @@ MonoBehaviour:
   tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   graphMask:
     value: -1
+--- !u!114 &5493909444125509245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 787495152585555360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea2293f40ef0f7e4d9b161599f4655a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DeamonEnemy: {fileID: 787495152585555367}
 --- !u!1 &787495153551152011
 GameObject:
   m_ObjectHideFlags: 0

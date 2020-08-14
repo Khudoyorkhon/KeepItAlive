@@ -43,7 +43,7 @@ namespace KeepItAlive
                     GameObject obj = Instantiate(pool.prefab);
                     obj.transform.SetParent(_pooledObjParent);
 
-                    if (EnemyPool)
+                    if (EnemyPool == true)
                     {
                         obj.TryGetComponent<Enemy>(out Enemy enemy);
                         enemy.Target = Target;

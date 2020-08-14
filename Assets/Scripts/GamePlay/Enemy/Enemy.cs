@@ -6,7 +6,7 @@ using System;
 
 namespace KeepItAlive
 {
-    public class Enemy : MonoBehaviour, ITakeDamage, IAttack, IPooledObject
+    public class Enemy : MonoBehaviour, IAttack, IPooledObject
     {
         #region Private Variable
 
@@ -28,7 +28,7 @@ namespace KeepItAlive
         private float _distance = 0f;
         private float _distanceToTarget = 0;
         private float _nextAttackTime;
-        private float _currentHealth;
+        
 
         private Vector2 _direction;
 
@@ -40,20 +40,20 @@ namespace KeepItAlive
         #region Public Varibale
         public Transform Target, AttackPoint;
 
-        public float AttackDistance = 8f, AttackRange, Health;
+        public float AttackDistance = 8f, AttackRange;
 
         public LayerMask PlayerLayer;
         public Rigidbody2D EnemyRigidbody { get => _enemyRigidbody; set => _enemyRigidbody = value; }
 
         public Animator EnemyAnimator;
 
-        public int Damage;
         public float AttackRate;
+        public int Health, Damage;
         #endregion
 
         private void Start()
         {
-            _currentHealth = Health;
+            
             attack = false;
             _scale = transform.localScale;
             InvokeRepeating("UpdatePath", 0f, 0.5f);
@@ -61,7 +61,7 @@ namespace KeepItAlive
         }
         public void OnObjectSpawn()
         {
-            _currentHealth = Health;
+
             attack = false;
             _scale = transform.localScale;
             InvokeRepeating("UpdatePath", 0f, 0.5f);
@@ -141,11 +141,11 @@ namespace KeepItAlive
                 CheckDistance();
             }
 
-            if(_enemyRigidbody.velocity.x >= 0.01f)
+            if(_enemyRigidbody.velocity.x > 0.01f)
             {
                 transform.localScale = new Vector3(-_scale.x, _scale.y, _scale.z);
             }
-            else if(_enemyRigidbody.velocity.x <= -0.01f)
+            else if(_enemyRigidbody.velocity.x < -0.01f)
             {
                 transform.localScale = new Vector3(_scale.x, _scale.y, _scale.z);
             }
@@ -162,15 +162,6 @@ namespace KeepItAlive
             
         }
 
-        public void TakeDamage(int damage)
-        {
-            _currentHealth -= damage;
-
-            if(_currentHealth <= 0)
-            {
-                this.gameObject.SetActive(false);
-            }
-        }
 
         public void Attack(int damage)
         {

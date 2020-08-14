@@ -35,7 +35,7 @@ namespace KeepItAlive
         #endregion
 
         #region public Varible
-        HealthBar HealthBar;
+        public HealthBar HealthBar;
         public int DamageVariance => _damageVariance;
         public int MaxHealth => _maxHealth;
         public int BaseDamage => _baseDamage;
@@ -110,11 +110,6 @@ namespace KeepItAlive
             if (IsMage)
             {
                 _characterAnimation.SetTrigger("TakeDamage");
-            }
-
-            if (IsHunter)
-            {
-
             }
 
             if (IsRougue)
