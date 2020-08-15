@@ -52,6 +52,11 @@ namespace KeepItAlive
 
         #region Public Functions
 
+        private void Start()
+        {
+            _currentHealth = MaxHealth;
+        }
+
         public bool IsGrounded()
         {
             _isGrounded = Physics2D.OverlapCircle(_groundCheck.position, _groundCheckRadius, _whatIsGround);
@@ -105,29 +110,7 @@ namespace KeepItAlive
 
         #region Private Functions
 
-        public void TakeDamage(int damage)
-        {
-            if (IsMage)
-            {
-                _characterAnimation.SetTrigger("TakeDamage");
-            }
 
-            if (IsRougue)
-            {
-                _characterAnimation.SetTrigger("Hurt");
-            }
-
-            _currentHealth -= damage;
-
-            HealthBar.SetHealth(_currentHealth);
-
-            if (_currentHealth <= 0)
-            {
-                print("Die");
-            }
-
-            print(damage);
-        }
         #endregion
 
     }
