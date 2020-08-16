@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1571974560052780088}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: CastSpellPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 1571974561088049583}
   - component: {fileID: 1571974561088049580}
   - component: {fileID: 1571974561088049579}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Mage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106,7 +106,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: 4723107735738678597, guid: 6fc66c021eec74942b4e71a3fde4dc04,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -162,6 +162,7 @@ MonoBehaviour:
   _whatIsGround:
     serializedVersion: 2
     m_Bits: 256
+  HealthBar: {fileID: 0}
 --- !u!50 &1571974561088049583
 Rigidbody2D:
   serializedVersion: 4
@@ -199,6 +200,7 @@ MonoBehaviour:
   MagicBarrier: {fileID: 1571974561487407014}
   CastSpellPoint: {fileID: 1571974560052780088}
   ArcaneExlosionCooldown: 5
+  HealthBar: {fileID: 0}
   arcaneMagic: {fileID: 1571974561487407010}
 --- !u!61 &1571974561088049579
 BoxCollider2D:
@@ -238,7 +240,7 @@ GameObject:
   - component: {fileID: 1571974561487407012}
   - component: {fileID: 1571974561487407011}
   - component: {fileID: 1571974561487407010}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: MagicBattier
   m_TagString: Untagged
   m_Icon: {fileID: 0}

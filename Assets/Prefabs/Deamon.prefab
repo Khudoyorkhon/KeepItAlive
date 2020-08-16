@@ -10,13 +10,13 @@ GameObject:
   m_Component:
   - component: {fileID: 787495152585555362}
   - component: {fileID: 787495152585555361}
-  - component: {fileID: 787495152585555363}
   - component: {fileID: 787495152585555364}
   - component: {fileID: 787495152585555367}
   - component: {fileID: 787495152585555366}
   - component: {fileID: 787495152585555365}
   - component: {fileID: 5493909444125509245}
-  m_Layer: 0
+  - component: {fileID: 2771822406040325454}
+  m_Layer: 9
   m_Name: Deamon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,32 +89,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &787495152585555363
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 787495152585555360}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.2986227, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.34, y: 1.24}
-    newSize: {x: 1.34, y: 1.24}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.74275476, y: 1.24}
-  m_EdgeRadius: 0
 --- !u!95 &787495152585555364
 Animator:
   serializedVersion: 3
@@ -156,7 +130,7 @@ MonoBehaviour:
   Target: {fileID: 0}
   AttackPoint: {fileID: 787495153551152012}
   AttackDistance: 5
-  AttackRange: 0.2
+  AttackRange: 1
   PlayerLayer:
     serializedVersion: 2
     m_Bits: 2048
@@ -226,6 +200,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DeamonEnemy: {fileID: 787495152585555367}
+--- !u!61 &2771822406040325454
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 787495152585555360}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.22655886, y: -0.17747094}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.34, y: 1.24}
+    newSize: {x: 1.34, y: 1.24}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.66032326, y: 0.88505816}
+  m_EdgeRadius: 0
 --- !u!1 &787495153551152011
 GameObject:
   m_ObjectHideFlags: 0
@@ -235,7 +235,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 787495153551152012}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: AttackPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -250,7 +250,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 787495153551152011}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.83, y: -0.6, z: 0}
+  m_LocalPosition: {x: -0.603, y: -0.319, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 787495152585555362}

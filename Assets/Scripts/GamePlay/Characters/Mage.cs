@@ -3,7 +3,7 @@ using DG.Tweening;
 
 namespace KeepItAlive
 {
-    public class Mage : MonoBehaviour, IAttack
+    public class Mage : MonoBehaviour, IAttack, ITakeDamage, IHeal
     {
 
         #region Public Variable
@@ -126,6 +126,31 @@ namespace KeepItAlive
         {
             MageCharacter.CharacterAnimator.SetTrigger("Attack");
             
+        }
+
+        public void TakeDamage(int damage)
+        {
+            _currentHealth -= damage;
+
+            HealthBar.SetHealth(_currentHealth);
+
+            if(_currentHealth <= 0)
+            {
+                print("Die");
+            }
+
+        }
+
+        public void Heal(int heal)
+        {
+            _currentHealth += heal;
+            if(_currentHealth >= MageCharacter.MaxHealth)
+            {
+                _currentHealth = MageCharacter.MaxHealth;
+            }
+
+            HealthBar.SetHealth(_currentHealth);
+
         }
     }
 }

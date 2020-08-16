@@ -46,8 +46,6 @@ namespace KeepItAlive
 
         public Animator CharacterAnimator => _characterAnimation;
 
-        public bool IsMage, IsHunter, IsRougue;
-
         #endregion
 
         #region Public Functions
@@ -105,13 +103,8 @@ namespace KeepItAlive
         {
             _characterRigidbody.velocity = Vector2.up * jumpForce;
         }
-
         #endregion
 
-        #region Private Functions
-
-
-        #endregion
 
     }
 }

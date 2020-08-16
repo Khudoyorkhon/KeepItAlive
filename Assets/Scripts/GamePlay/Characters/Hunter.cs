@@ -5,12 +5,15 @@ using UnityEngine;
 
 namespace KeepItAlive
 {
-    public class Hunter : MonoBehaviour, ITakeDamage
+    public class Hunter : MonoBehaviour, ITakeDamage, IHeal
     {
         #region Public Variable
         public Character HunterCharacter;
 
         public GameObject Bullet;
+        public ObjectPooler objectPooler;
+
+        public HealthBar HealthBar;
 
         public Transform ShootPoint, CastSpellPoint;
         #endregion
@@ -29,8 +32,8 @@ namespace KeepItAlive
         #endregion
         private void Start()
         {
-            _objectPooler = ObjectPooler.Instance;
             _currentHealth = HunterCharacter.MaxHealth;
+            HealthBar.SetMaxHealth(HunterCharacter.MaxHealth);
             _canMove = true;
         }
 
@@ -90,7 +93,18 @@ namespace KeepItAlive
             HunterCharacter.CharacterAnimator.SetTrigger("Shoot");
 
             //Instantiate(Bullet, ShootPoint.position, ShootPoint.rotation);
-            _objectPooler.SpawnFromPool("Bullet", ShootPoint.position, ShootPoint.rotation);
+            objectPooler.SpawnFromPool("Bullet", ShootPoint.position, ShootPoint.rotation);
+        }
+
+        public void Heal(int heal)
+        {
+            _currentHealth += heal;
+            if (_currentHealth >= HunterCharacter.MaxHealth)
+            {
+                _currentHealth = HunterCharacter.MaxHealth;
+            }
+
+            HealthBar.SetHealth(_currentHealth);
         }
 
         public void CastSpell()

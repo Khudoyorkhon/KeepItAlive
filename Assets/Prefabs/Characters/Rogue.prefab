@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2160824268045800553}
   - component: {fileID: 2160824268045800554}
   - component: {fileID: 2160824268045800555}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Rogue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: 1c21bf5336deb854f9c01dda661615af, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -132,6 +132,7 @@ MonoBehaviour:
   _whatIsGround:
     serializedVersion: 2
     m_Bits: 256
+  HealthBar: {fileID: 0}
 --- !u!50 &2160824268045800553
 Rigidbody2D:
   serializedVersion: 4
@@ -147,7 +148,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1.75
+  m_GravityScale: 3
   m_Material: {fileID: 6200000, guid: 48ee93e0f042f7f479d1a77370697980, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -165,12 +166,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b881d7a5be54ff4fbc4bebf848cefc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RogueController: {fileID: 2160824268045800552}
+  RogueCharacter: {fileID: 2160824268045800552}
   AttackPoint: {fileID: 2160824268983742402}
   WallCheck: {fileID: 2160824269504935326}
   AttackRange: 0.5
   AttackRate: 2
   JumpTimeCounter: 0.35
+  DashTime: 0
+  DashSpeed: 0
+  HealthBar: {fileID: 0}
+  objectPooler: {fileID: 0}
   EnemyLayers:
     serializedVersion: 2
     m_Bits: 512
@@ -199,7 +204,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2160824268983742402}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: AttackPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -229,7 +234,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2160824269052521175}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -259,7 +264,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2160824269504935326}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: WallCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace KeepItAlive
 {
-    public class Rogue : MonoBehaviour,IAttack, ITakeDamage
+    public class Rogue : MonoBehaviour,IAttack, ITakeDamage, IHeal
     {
         #region Public Variable
         public Character RogueCharacter;
@@ -15,6 +15,12 @@ namespace KeepItAlive
         public float AttackRange = 0.5f;
         public float AttackRate = 1f;
         public float JumpTimeCounter = 0.35f;
+        public float DashTime;
+        public float DashSpeed;
+
+        public HealthBar HealthBar;
+
+        public ObjectPooler objectPooler;
 
         public LayerMask EnemyLayers;
         #endregion
@@ -23,7 +29,8 @@ namespace KeepItAlive
         private float _xDirection;
         private float _nextAttackTime;
         private float _jumpTimeCounter;
-        
+        private float _dashTimeLeft;
+
         private bool _jump = false;
 
         private int _currentHealth;
@@ -33,6 +40,7 @@ namespace KeepItAlive
         private void Start()
         {
             _currentHealth = RogueCharacter.MaxHealth;
+            HealthBar.SetMaxHealth(RogueCharacter.MaxHealth);
         }
 
         private void Update()
@@ -41,10 +49,8 @@ namespace KeepItAlive
 
             RogueCharacter.IsGrounded();
 
-            if(RogueCharacter.CanMove() == true && RogueCharacter.IsGrounded() == true)
-            {
-                _xDirection = Input.GetAxisRaw("Horizontal");
-            }
+            _xDirection = Input.GetAxisRaw("Horizontal");
+
 
             if (Time.time >= _nextAttackTime)
             {
@@ -57,6 +63,7 @@ namespace KeepItAlive
 
             if(Input.GetButtonDown("Jump") && RogueCharacter.IsGrounded() == true)
             {
+ 
                 _jump = true;
                 _jumpTimeCounter = JumpTimeCounter;
                 RogueCharacter.Jump(RogueCharacter.JumpForce);
@@ -64,7 +71,8 @@ namespace KeepItAlive
 
             if (Input.GetKey(KeyCode.Space) && _jump == true)
             {
-                if(_jumpTimeCounter > 0)
+
+                if (_jumpTimeCounter > 0)
                 {
                     RogueCharacter.Jump(RogueCharacter.JumpForce);
                     _jumpTimeCounter -= Time.deltaTime;
@@ -78,6 +86,11 @@ namespace KeepItAlive
             if (Input.GetKeyUp(KeyCode.Space))
             {
                 _jump = false;
+            }
+
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                Dash();
             }
         }
 
@@ -98,7 +111,7 @@ namespace KeepItAlive
             foreach(Collider2D detectedEnemy in hitEnemy)
             {
                 detectedEnemy.TryGetComponent<ITakeDamage>(out ITakeDamage takeDamage);
-    
+                print(detectedEnemy.name);
                     takeDamage?.TakeDamage(damage);
             }
 
@@ -107,6 +120,7 @@ namespace KeepItAlive
         public void TakeDamage(int damage)
         {
             _currentHealth -= damage;
+            HealthBar.SetHealth(_currentHealth);
 
             RogueCharacter.CharacterAnimator.SetTrigger("Hurt");
 
@@ -115,6 +129,32 @@ namespace KeepItAlive
                 RogueCharacter.CharacterAnimator.SetBool("isDie", true);
             }
 
+        }
+
+        public void Heal(int heal)
+        {
+            _currentHealth += heal;
+
+            HealthBar.SetHealth(_currentHealth);
+
+            if(_currentHealth >= RogueCharacter.MaxHealth)
+            {
+                _currentHealth = RogueCharacter.MaxHealth;
+            }
+        }
+
+        public void Dash()
+        {
+            _dashTimeLeft += Time.deltaTime;
+            if (_dashTimeLeft <= DashTime)
+            {
+                RogueCharacter.CharacterRigidbody.velocity = new Vector2(DashSpeed, RogueCharacter.CharacterRigidbody.velocity.y);
+                _dashTimeLeft = 0;
+            }
+            else
+            {
+                RogueCharacter.CharacterRigidbody.velocity = Vector2.zero;
+            }
         }
 
         #endregion

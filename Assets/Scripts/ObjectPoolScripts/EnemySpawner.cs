@@ -17,6 +17,7 @@ namespace KeepItAlive
         private void Start()
         {
             _objectPooler.SpawnFromPool("Deamon", SpawnPoint.position, Quaternion.identity);
+            _objectPooler.SpawnFromPool("Skeleton", SpawnPoint.position, Quaternion.identity);
         }
 
         private void FixedUpdate()
