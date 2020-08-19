@@ -70,8 +70,12 @@ namespace KeepItAlive
 
         private void UpdatePath()
         {
-            if(seeker.IsDone())
-                seeker.StartPath(_enemyRigidbody.position, Target.position, OnCompletePath);
+            if(Target != null)
+            {
+                if (seeker.IsDone())
+                    seeker.StartPath(_enemyRigidbody.position, Target.position, OnCompletePath);
+            }
+           
         }
 
         private void FixedUpdate()
