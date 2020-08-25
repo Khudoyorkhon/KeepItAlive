@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Threading;
 using UnityEngine;
 
 namespace KeepItAlive
@@ -20,7 +19,9 @@ namespace KeepItAlive
 
         public HealthBar HealthBar;
 
-        public ObjectPooler objectPooler;
+        public Timer Timer;
+
+        public GameCanvasUI gameCanvas;
 
         public LayerMask EnemyLayers;
         #endregion
@@ -87,11 +88,6 @@ namespace KeepItAlive
             {
                 _jump = false;
             }
-
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                Dash();
-            }
         }
 
         private void FixedUpdate()
@@ -126,7 +122,11 @@ namespace KeepItAlive
 
             if (_currentHealth <= 0)
             {
-                RogueCharacter.CharacterAnimator.SetBool("isDie", true);
+                RogueCharacter.CharacterAnimator.SetBool("isDead", true);
+               // RogueCharacter.SaveTime();
+                gameCanvas.Lose();
+
+                gameObject.SetActive(false);
             }
 
         }
@@ -140,20 +140,6 @@ namespace KeepItAlive
             if(_currentHealth >= RogueCharacter.MaxHealth)
             {
                 _currentHealth = RogueCharacter.MaxHealth;
-            }
-        }
-
-        public void Dash()
-        {
-            _dashTimeLeft += Time.deltaTime;
-            if (_dashTimeLeft <= DashTime)
-            {
-                RogueCharacter.CharacterRigidbody.velocity = new Vector2(DashSpeed, RogueCharacter.CharacterRigidbody.velocity.y);
-                _dashTimeLeft = 0;
-            }
-            else
-            {
-                RogueCharacter.CharacterRigidbody.velocity = Vector2.zero;
             }
         }
 

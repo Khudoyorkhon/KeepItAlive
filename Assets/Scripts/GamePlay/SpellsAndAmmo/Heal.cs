@@ -11,6 +11,7 @@ public class Heal : MonoBehaviour
     {
         if (collision.TryGetComponent<IHeal>(out IHeal heal))
             heal?.Heal(Random.Range(_healAmount - _healDeviation, _healAmount + _healDeviation));
+        gameObject.SetActive(false);
     }
 
 }

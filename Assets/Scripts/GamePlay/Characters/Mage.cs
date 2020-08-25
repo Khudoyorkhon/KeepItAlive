@@ -137,6 +137,7 @@ namespace KeepItAlive
             if(_currentHealth <= 0)
             {
                 print("Die");
+                MageCharacter.SaveTime();
             }
 
         }

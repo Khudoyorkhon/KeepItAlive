@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace KeepItAlive
 {
@@ -35,7 +33,7 @@ namespace KeepItAlive
         #endregion
 
         #region public Varible
-        public HealthBar HealthBar;
+
         public int DamageVariance => _damageVariance;
         public int MaxHealth => _maxHealth;
         public int BaseDamage => _baseDamage;
@@ -44,6 +42,7 @@ namespace KeepItAlive
 
         public Rigidbody2D CharacterRigidbody => _characterRigidbody;
 
+        public StopWatch Timer;
         public Animator CharacterAnimator => _characterAnimation;
 
         #endregion
@@ -97,6 +96,14 @@ namespace KeepItAlive
 
             transform.Rotate(0.0f, 180.0f, 0.0f);
 
+        }
+
+        public void SaveTime()
+        {
+            if (Timer.TimeStart > DataContainer.Instance.CurrentBestTime)
+            {
+                DataContainer.Instance.SetData(Timer.TimeStart, "BestTime");
+            }
         }
 
         public void Jump(float jumpForce)
