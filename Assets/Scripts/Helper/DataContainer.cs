@@ -5,9 +5,9 @@ public class DataContainer : MonoBehaviour
 {
     public static DataContainer Instance;
 
-    public TextMeshProUGUI BestTime = null;
+    public TextMeshProUGUI BestTimeMage, BestTimeHunter, BestTimeRogue;
 
-    public float CurrentBestTime = 0.00f;
+    public float CurrentBestMageTime = 0.00f, CurrentBestHunterTime = 0.00f, CurrentBestRogueTime= 0.00f;
 
 
     private void Awake()
@@ -27,19 +27,13 @@ public class DataContainer : MonoBehaviour
     private void Start()
     {
 
-        if (BestTime != null)
-        {
-            if (!PlayerPrefs.HasKey("BestTime"))
-            {
+        ShowData(BestTimeMage, "BestMage");        
+        ShowData(BestTimeHunter, "BestHunter");        
+        ShowData(BestTimeRogue, "BestRogue");
 
-                BestTime.text = "0.00";
-            }
-            else
-            {
-                BestTime.text = GetData("BestTime").ToString("F2");
-                CurrentBestTime = GetData("BestTime");
-            }
-        }
+        CurrentBestMageTime = GetData("BestMage");
+        CurrentBestHunterTime = GetData("BestHunter");
+        CurrentBestRogueTime = GetData("BestRogue");
 
     }
 
@@ -50,6 +44,27 @@ public class DataContainer : MonoBehaviour
 
     public float GetData(string key)
     {
-        return PlayerPrefs.GetFloat(key);
+        return PlayerPrefs.GetFloat(key,0.00f);
+    }
+
+
+
+    private void ShowData(TextMeshProUGUI text, string key)
+    {
+        float tempVar = 0;
+
+        if (text != null)
+        {
+            if (!PlayerPrefs.HasKey(key))
+            {
+
+                text.text = "0.00";
+            }
+            else
+            {
+                tempVar = GetData(key);
+                text.text = tempVar.ToString("F2");
+            }
+        }
     }
 }

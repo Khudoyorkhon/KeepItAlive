@@ -14,14 +14,13 @@ namespace KeepItAlive
         public float AttackRange = 0.5f;
         public float AttackRate = 1f;
         public float JumpTimeCounter = 0.35f;
-        public float DashTime;
-        public float DashSpeed;
+
 
         public HealthBar HealthBar;
 
-        public Timer Timer;
+        public StopWatch Timer;
 
-        public GameCanvasUI gameCanvas;
+        public GameCanvasUI GameCanvas;
 
         public LayerMask EnemyLayers;
         #endregion
@@ -30,7 +29,6 @@ namespace KeepItAlive
         private float _xDirection;
         private float _nextAttackTime;
         private float _jumpTimeCounter;
-        private float _dashTimeLeft;
 
         private bool _jump = false;
 
@@ -123,9 +121,9 @@ namespace KeepItAlive
             if (_currentHealth <= 0)
             {
                 RogueCharacter.CharacterAnimator.SetBool("isDead", true);
-               // RogueCharacter.SaveTime();
-                gameCanvas.Lose();
-
+               
+                GameCanvas.Lose();
+                RogueCharacter.SaveTime("BestRogue", DataContainer.Instance.CurrentBestRogueTime);
                 gameObject.SetActive(false);
             }
 
@@ -145,6 +143,7 @@ namespace KeepItAlive
 
         #endregion
         #region Private Function
+
 
 
         private void AnimationUpdate()

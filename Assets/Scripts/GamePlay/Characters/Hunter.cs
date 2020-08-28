@@ -10,12 +10,13 @@ namespace KeepItAlive
         #region Public Variable
         public Character HunterCharacter;
 
-        public GameObject Bullet;
         public ObjectPooler objectPooler;
 
         public HealthBar HealthBar;
 
         public Transform ShootPoint, CastSpellPoint;
+
+        public GameCanvasUI GameCanvas;
         #endregion
 
         #region Private Variable
@@ -27,12 +28,12 @@ namespace KeepItAlive
 
         private bool _canMove = false;
 
-        private ObjectPooler _objectPooler;
 
         #endregion
         private void Start()
         {
             _currentHealth = HunterCharacter.MaxHealth;
+            print(_currentHealth);
             HealthBar.SetMaxHealth(HunterCharacter.MaxHealth);
             _canMove = true;
         }
@@ -57,7 +58,7 @@ namespace KeepItAlive
                 _canMove = true;
             }
 
-            if (Input.GetKeyDown(KeyCode.Alpha1))
+            if (Input.GetKeyDown(KeyCode.Q))
             {
                 CastSpell();
             }
@@ -84,27 +85,29 @@ namespace KeepItAlive
         public void TakeDamage(int damage)
         {
             _currentHealth -= damage;
+            print(_currentHealth);
 
-            if(_currentHealth <= 0)
+            HealthBar.SetHealth(_currentHealth);
+            if (_currentHealth <= 0)
             {
-                HunterCharacter.SaveTime();
+                GameCanvas.Lose();
+                HunterCharacter.SaveTime("BestHunter", DataContainer.Instance.CurrentBestHunterTime);
+                gameObject.SetActive(false);
             }
 
         }
 
         public void Attack()
         {
-
-
             HunterCharacter.CharacterAnimator.SetTrigger("Shoot");
 
-            //Instantiate(Bullet, ShootPoint.position, ShootPoint.rotation);
             objectPooler.SpawnFromPool("Bullet", ShootPoint.position, ShootPoint.rotation);
         }
 
         public void Heal(int heal)
         {
             _currentHealth += heal;
+            print(_currentHealth);
             if (_currentHealth >= HunterCharacter.MaxHealth)
             {
                 _currentHealth = HunterCharacter.MaxHealth;
@@ -117,8 +120,10 @@ namespace KeepItAlive
         {
             HunterCharacter.CharacterAnimator.SetTrigger("Shoot");
 
-            _objectPooler.SpawnFromPool("Nightmare", CastSpellPoint.position, CastSpellPoint.rotation);
+            objectPooler.SpawnFromPool("Nightmare", CastSpellPoint.position, CastSpellPoint.rotation);
         }
+
+
     }
 }
 

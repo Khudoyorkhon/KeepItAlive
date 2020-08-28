@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1571974560052780089}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.145, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1571974561088049584}
@@ -198,9 +198,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MageCharacter: {fileID: 1571974561088049582}
+  ObjectPooler: {fileID: 0}
   MagicBarrier: {fileID: 1571974561487407014}
   CastSpellPoint: {fileID: 1571974560052780088}
   ArcaneExlosionCooldown: 5
+  AttackRate: 5
+  WaterMagicCooldown: 2
   HealthBar: {fileID: 0}
   arcaneMagic: {fileID: 1571974561487407010}
 --- !u!61 &1571974561088049579
@@ -216,7 +219,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.041671023, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -227,7 +230,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.28491783, y: 0.46209082}
+  m_Size: {x: 0.20157579, y: 0.46209082}
   m_EdgeRadius: 0
 --- !u!1 &1571974561487407014
 GameObject:
@@ -239,9 +242,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1571974561487407013}
   - component: {fileID: 1571974561487407012}
-  - component: {fileID: 1571974561487407011}
   - component: {fileID: 1571974561487407010}
-  m_Layer: 11
+  - component: {fileID: 5572540430468259443}
+  m_Layer: 0
   m_Name: MagicBattier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -300,9 +303,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 458492353
   m_SortingLayer: 2
-  m_SortingOrder: 8
+  m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 78956a549ddb8504cba2e9d3b98a80db, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -312,22 +315,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!58 &1571974561487407011
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1571974561487407014}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 2.78
 --- !u!114 &1571974561487407010
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -340,9 +327,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 552e2e8f19406d94ab71fde576f7a8b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mage: {fileID: 1571974561088049580}
-  _arcaneMagicCollider2D: {fileID: 1571974561487407011}
+  _arcaneMagicCollider2D: {fileID: 5572540430468259443}
   _damage: 200
+--- !u!68 &5572540430468259443
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1571974561487407014}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: 0.19682893, y: -2.5103114}
+  - {x: -0.53022885, y: -2.5254912}
+  - {x: -1.2097404, y: -2.2716987}
+  - {x: -1.6986914, y: -2.0183334}
+  - {x: -2.3505116, y: -1.2866017}
+  - {x: -2.6590261, y: 0.12205441}
+  - {x: -2.2341394, y: 1.3306735}
+  - {x: -1.554286, y: 2.1225896}
+  - {x: -0.75501347, y: 2.494916}
+  - {x: 0.037397455, y: 2.6007097}
+  - {x: 1.3134586, y: 2.2895825}
+  - {x: 1.8425627, y: 1.9050452}
+  - {x: 2.2138567, y: 1.3662311}
+  - {x: 2.5432591, y: 0.7800495}
+  - {x: 2.6099842, y: -0.46952537}
+  - {x: 2.162393, y: -1.5620891}
+  - {x: 1.3658416, y: -2.257996}
+  - {x: 0.25858158, y: -2.5325258}
 --- !u!1 &7634622705582509548
 GameObject:
   m_ObjectHideFlags: 0

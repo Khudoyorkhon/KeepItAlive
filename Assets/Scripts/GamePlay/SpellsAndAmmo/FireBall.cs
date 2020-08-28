@@ -31,6 +31,7 @@
         {
             if (collision.TryGetComponent<ITakeDamage>(out ITakeDamage takeDamage))
                 takeDamage?.TakeDamage(Random.Range(FireBallProjectile.Damage - FireBallProjectile.DamageVariance, FireBallProjectile.Damage + FireBallProjectile.DamageVariance));
+            gameObject.SetActive(false);
         }
     }
 }

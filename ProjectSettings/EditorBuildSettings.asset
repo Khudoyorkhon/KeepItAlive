@@ -8,4 +8,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/RogueScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/HunterScene.unity
+    guid: 85c11bd43009d6f4da2126f42cd3800b
+  - enabled: 1
+    path: Assets/Scenes/MageScene.unity
+    guid: 8313abf2c9b7f0448bf858e9e9839540
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: de6d9fbdbd459224fb9a2b7cdedef1cb
   m_configObjects: {}

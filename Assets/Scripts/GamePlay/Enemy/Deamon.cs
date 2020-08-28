@@ -23,7 +23,7 @@ namespace KeepItAlive
         public void TakeDamage(int damage)
         {
             _currentHealth -= damage;
-            print(_currentHealth);
+            
 
             if (_currentHealth <= 0)
             {

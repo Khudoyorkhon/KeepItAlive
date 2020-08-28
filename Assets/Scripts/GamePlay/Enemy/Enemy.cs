@@ -14,7 +14,7 @@ namespace KeepItAlive
 
         [SerializeField] private int currentWayPoint = 0;
 
-        private bool _reachEndPoint = false;
+
         [SerializeField] private bool _flyEnemy = false;
         [SerializeField] private bool _groundEnemy = false;
                     
@@ -43,6 +43,8 @@ namespace KeepItAlive
         public Rigidbody2D EnemyRigidbody { get => _enemyRigidbody; set => _enemyRigidbody = value; }
 
         public Animator EnemyAnimator;
+
+        public bool ReachEndPoint = false;
 
         public float AttackRate;
         public int Health, Damage;
@@ -96,12 +98,12 @@ namespace KeepItAlive
 
             if (currentWayPoint >= path.vectorPath.Count)
             {
-                _reachEndPoint = true;
+                ReachEndPoint = true;
                 return;
             }
             else
             {
-                _reachEndPoint = false;
+                ReachEndPoint = false;
             }
 
             _direction = ((Vector2)path.vectorPath[currentWayPoint] - _enemyRigidbody.position).normalized;

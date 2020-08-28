@@ -77,7 +77,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 458492353
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: 1c21bf5336deb854f9c01dda661615af, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -126,14 +126,13 @@ MonoBehaviour:
   _damageVariance: 6
   _speed: 15
   _groundCheckRadius: 0.2
-  _jumpForce: 10
+  _jumpForce: 12
   _characterRigidbody: {fileID: 2160824268045800553}
   _characterAnimation: {fileID: 2160824268045800559}
   _groundCheck: {fileID: 2160824269052521175}
-  _whatIsGround:
+  WhatIsGround:
     serializedVersion: 2
     m_Bits: 256
-  HealthBar: {fileID: 0}
   Timer: {fileID: 0}
 --- !u!50 &2160824268045800553
 Rigidbody2D:
@@ -174,10 +173,9 @@ MonoBehaviour:
   AttackRange: 0.5
   AttackRate: 2
   JumpTimeCounter: 0.35
-  DashTime: 0
-  DashSpeed: 0
   HealthBar: {fileID: 0}
-  gameCanvas: {fileID: 0}
+  Timer: {fileID: 0}
+  GameCanvas: {fileID: 0}
   EnemyLayers:
     serializedVersion: 2
     m_Bits: 512

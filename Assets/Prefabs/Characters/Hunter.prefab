@@ -88,7 +88,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -107,7 +107,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 458492353
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: e5cfa9c48ee4d4b7694945b4c8f1c595, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -141,10 +141,9 @@ MonoBehaviour:
   _characterRigidbody: {fileID: 7845506158122880635}
   _characterAnimation: {fileID: 7845506158122880634}
   _groundCheck: {fileID: 7845506159841083674}
-  _whatIsGround:
+  WhatIsGround:
     serializedVersion: 2
     m_Bits: 256
-  HealthBar: {fileID: 0}
   Timer: {fileID: 0}
 --- !u!50 &7845506158122880635
 Rigidbody2D:
@@ -199,11 +198,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HunterCharacter: {fileID: 7845506158122880637}
-  Bullet: {fileID: 7918731446371166417, guid: 6c066e9b5224ca84c9e01bbbfb05d362, type: 3}
   objectPooler: {fileID: 0}
   HealthBar: {fileID: 0}
   ShootPoint: {fileID: 7845506159792934472}
   CastSpellPoint: {fileID: 7845506158002849169}
+  GameCanvas: {fileID: 0}
 --- !u!61 &7845506158122880630
 BoxCollider2D:
   m_ObjectHideFlags: 0

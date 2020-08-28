@@ -30,7 +30,7 @@ namespace KeepItAlive
         {
             if (collision.TryGetComponent<ITakeDamage>(out ITakeDamage takeDamage))
                 takeDamage?.TakeDamage(Random.Range(BulletProjectile.Damage - BulletProjectile.DamageVariance, BulletProjectile.Damage + BulletProjectile.DamageVariance));
-            this.gameObject.SetActive(false);
+            gameObject.SetActive(false);
         }
 
 

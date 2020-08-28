@@ -3,21 +3,27 @@ using DG.Tweening;
 
 namespace KeepItAlive
 {
-    public class Mage : MonoBehaviour, IAttack, ITakeDamage, IHeal
+    public class Mage : MonoBehaviour, ITakeDamage, IHeal
     {
 
         #region Public Variable
         public Character MageCharacter;
 
+        public ObjectPooler ObjectPooler;
+
         public GameObject MagicBarrier;
 
         public Transform CastSpellPoint;
 
-        public float ArcaneExlosionCooldown = 5f;
-
+        public float ArcaneExlosionCooldown = 5f, AttackRate = 5f, WaterMagicCooldown = 2f;
+        public GameCanvasUI GameLose;
         public HealthBar HealthBar;
 
+        public StopWatch Timer;
+
         public ArcaneMagic arcaneMagic;
+
+        public bool IsWaterMageReady;
 
         #endregion
 
@@ -25,10 +31,10 @@ namespace KeepItAlive
         private int _currentHealth;
 
         private float _theScale;
-
         private float _xDirection;
-
         private float _nextArcaneExlosion = 0f;
+        private float _nextAttackTime = 0f;
+        private float _nextWaterAttackTIme = 0f;
 
         private bool canCast = false;
 
@@ -63,13 +69,40 @@ namespace KeepItAlive
                 canCast = true;
             }
 
-            if(canCast == true)
+            if(Time.time >= _nextAttackTime)
             {
                 if (Input.GetMouseButtonDown(0))
+                {
+                    Attack();
+                    _nextAttackTime = Time.time + 1f / AttackRate;
+                }
+            }
+
+            if(canCast == true)
+            {
+                if (Input.GetKeyDown(KeyCode.Q))
                 {
                     ArcaneExplosion(MagicBarrier, 1f);
                     _nextArcaneExlosion = 0f;
                 }
+            }
+
+
+            if (_nextWaterAttackTIme >= WaterMagicCooldown)
+            {
+
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    WaterMagic();
+                    _nextWaterAttackTIme = 0f;
+                     
+                }
+
+            }
+            else
+            {
+                _nextWaterAttackTIme += Time.deltaTime;
+                
             }
 
         }
@@ -80,17 +113,14 @@ namespace KeepItAlive
         }
 
         private void AnimationUpdate()
-        {
-            
+        {           
             MageCharacter.CharacterAnimator.SetFloat("xVelocity", Mathf.Abs(MageCharacter.CharacterRigidbody.velocity.x));           
         }
 
 
         private void ArcaneExplosion(GameObject gameObject, float scale)
         {
-            
             ScaleBigger(gameObject, scale, ArcaneExlosionCooldown);
-
         }
 
         private void ArcaneExplosionCooldown(float time, GameObject gameObject)
@@ -120,13 +150,18 @@ namespace KeepItAlive
             gameObject.GetComponent<SpriteRenderer>().DOFade(1f, time);
         }
 
-
-
-        public void Attack(int damage)
+        private void WaterMagic()
         {
             MageCharacter.CharacterAnimator.SetTrigger("Attack");
-            
+            ObjectPooler.SpawnFromPool("WaterMage", CastSpellPoint.position, CastSpellPoint.rotation);
         }
+
+        public void Attack()
+        {
+            MageCharacter.CharacterAnimator.SetTrigger("Attack");
+            ObjectPooler.SpawnFromPool("FireBall", CastSpellPoint.position, CastSpellPoint.rotation);
+        }
+
 
         public void TakeDamage(int damage)
         {
@@ -136,8 +171,9 @@ namespace KeepItAlive
 
             if(_currentHealth <= 0)
             {
-                print("Die");
-                MageCharacter.SaveTime();
+                GameLose.Lose();
+                MageCharacter.SaveTime("BestMage", DataContainer.Instance.CurrentBestMageTime);
+                gameObject.SetActive(false);
             }
 
         }
@@ -151,8 +187,8 @@ namespace KeepItAlive
             }
 
             HealthBar.SetHealth(_currentHealth);
-
         }
+
     }
 }
 

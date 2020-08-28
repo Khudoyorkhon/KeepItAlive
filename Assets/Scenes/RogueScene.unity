@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -4477,11 +4477,6 @@ PrefabInstance:
       propertyPath: Timer
       value: 
       objectReference: {fileID: 1955319698}
-    - target: {fileID: 2160824268045800552, guid: 062e84a9e22c1d04e8beeada50989722,
-        type: 3}
-      propertyPath: _jumpForce
-      value: 12
-      objectReference: {fileID: 0}
     - target: {fileID: 2160824268045800553, guid: 062e84a9e22c1d04e8beeada50989722,
         type: 3}
       propertyPath: m_GravityScale
@@ -4512,6 +4507,16 @@ PrefabInstance:
       propertyPath: gameCanvas
       value: 
       objectReference: {fileID: 550508548}
+    - target: {fileID: 2160824268045800554, guid: 062e84a9e22c1d04e8beeada50989722,
+        type: 3}
+      propertyPath: GameCanvas
+      value: 
+      objectReference: {fileID: 550508548}
+    - target: {fileID: 2160824268045800554, guid: 062e84a9e22c1d04e8beeada50989722,
+        type: 3}
+      propertyPath: Timer
+      value: 
+      objectReference: {fileID: 1955319698}
     - target: {fileID: 2160824268983742402, guid: 062e84a9e22c1d04e8beeada50989722,
         type: 3}
       propertyPath: m_LocalPosition.x

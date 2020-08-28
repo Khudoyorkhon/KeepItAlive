@@ -23,7 +23,7 @@ namespace KeepItAlive
 
         [SerializeField] private Transform _groundCheck = null;
 
-        [SerializeField] private LayerMask _whatIsGround;
+
 
         private bool _isGrounded;
         private bool _canMove;
@@ -40,6 +40,7 @@ namespace KeepItAlive
         public float Speed => _speed;
         public float JumpForce => _jumpForce;
 
+        public LayerMask WhatIsGround;
         public Rigidbody2D CharacterRigidbody => _characterRigidbody;
 
         public StopWatch Timer;
@@ -56,7 +57,7 @@ namespace KeepItAlive
 
         public bool IsGrounded()
         {
-            _isGrounded = Physics2D.OverlapCircle(_groundCheck.position, _groundCheckRadius, _whatIsGround);
+            _isGrounded = Physics2D.OverlapCircle(_groundCheck.position, _groundCheckRadius, WhatIsGround);
 
             return _isGrounded;
         }
@@ -98,17 +99,18 @@ namespace KeepItAlive
 
         }
 
-        public void SaveTime()
-        {
-            if (Timer.TimeStart > DataContainer.Instance.CurrentBestTime)
-            {
-                DataContainer.Instance.SetData(Timer.TimeStart, "BestTime");
-            }
-        }
-
+       
         public void Jump(float jumpForce)
         {
             _characterRigidbody.velocity = Vector2.up * jumpForce;
+        }
+
+        public void SaveTime(string key, float currentBestTime)
+        {
+            if (Timer.TimeStart > currentBestTime)
+            {
+                DataContainer.Instance.SetData(Timer.TimeStart, key);
+            }
         }
         #endregion
 
