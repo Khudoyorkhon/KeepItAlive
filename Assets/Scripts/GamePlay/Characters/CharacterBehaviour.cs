@@ -2,58 +2,26 @@
 
 namespace KeepItAlive
 {
-    public class Character : MonoBehaviour
+    public class CharacterBehaviour : MonoBehaviour
     {
         #region private Variable
-
-        [SerializeField] private int _maxHealth = 100;
-        [SerializeField] private int _baseDamage = 25;
-        [SerializeField] private int _damageVariance = 6;
-
-
-        [SerializeField] private float _speed = 15f;
         [SerializeField] private float _groundCheckRadius = 0.2f;
-        [SerializeField] private float _jumpForce = 400f;
-
-        [SerializeField] private Rigidbody2D _characterRigidbody=null;
-
-
-
-        [SerializeField] private Animator _characterAnimation = null;
 
         [SerializeField] private Transform _groundCheck = null;
 
-
+        [SerializeField] private Rigidbody2D _characterRigidbody = null;
 
         private bool _isGrounded;
         private bool _canMove;
         private bool _isFacingRigtht = true;
-
-        private int _currentHealth;
         #endregion
 
-        #region public Varible
-
-        public int DamageVariance => _damageVariance;
-        public int MaxHealth => _maxHealth;
-        public int BaseDamage => _baseDamage;
-        public float Speed => _speed;
-        public float JumpForce => _jumpForce;
-
-        public LayerMask WhatIsGround;
+        #region Public Varibale
         public Rigidbody2D CharacterRigidbody => _characterRigidbody;
 
-        public StopWatch Timer;
-        public Animator CharacterAnimator => _characterAnimation;
+        public LayerMask WhatIsGround;
 
         #endregion
-
-        #region Public Functions
-
-        private void Start()
-        {
-            _currentHealth = MaxHealth;
-        }
 
         public bool IsGrounded()
         {
@@ -80,15 +48,15 @@ namespace KeepItAlive
         {
             _characterRigidbody.velocity = new Vector2(direction * speed, _characterRigidbody.velocity.y);
 
-            if(direction < 0 && _isFacingRigtht)
+            if (direction < 0 && _isFacingRigtht)
             {
                 FlipCharacter();
             }
-            else if(direction >0 && !_isFacingRigtht)
+            else if (direction > 0 && !_isFacingRigtht)
             {
                 FlipCharacter();
             }
-            
+
         }
 
         public void FlipCharacter()
@@ -99,21 +67,11 @@ namespace KeepItAlive
 
         }
 
-       
+
         public void Jump(float jumpForce)
         {
             _characterRigidbody.velocity = Vector2.up * jumpForce;
         }
-
-        public void SaveTime(string key, float currentBestTime)
-        {
-            if (Timer.TimeStart > currentBestTime)
-            {
-                DataContainer.Instance.SetData(Timer.TimeStart, key);
-            }
-        }
-        #endregion
-
 
     }
 }

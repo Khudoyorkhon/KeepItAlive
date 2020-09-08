@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 
 namespace KeepItAlive
@@ -8,7 +6,10 @@ namespace KeepItAlive
     public class Hunter : MonoBehaviour, ITakeDamage, IHeal
     {
         #region Public Variable
-        public Character HunterCharacter;
+
+        public CharacterBehaviour HunterBehaviour;
+        public CharacterStats HunterStats;
+        public CharacterDataContainer HunterData;
 
         public ObjectPooler objectPooler;
 
@@ -17,33 +18,37 @@ namespace KeepItAlive
         public Transform ShootPoint, CastSpellPoint;
 
         public GameCanvasUI GameCanvas;
+
         #endregion
 
         #region Private Variable
 
         private float _xDirection;
-        private float _nextAttackTime;
 
         private int _currentHealth;
+        private int _maxHealth;
 
         private bool _canMove = false;
 
-
         #endregion
+
+        #region Private Functions
         private void Start()
         {
-            _currentHealth = HunterCharacter.MaxHealth;
-            print(_currentHealth);
-            HealthBar.SetMaxHealth(HunterCharacter.MaxHealth);
+            _maxHealth = HunterStats.MaxHealth;
+            _currentHealth = HunterStats.MaxHealth;
+
+            HealthBar.SetMaxHealth(_maxHealth);
+
             _canMove = true;
         }
 
         private void Update()
         {
             AnimationUpdate();
-            HunterCharacter.IsGrounded();
+            HunterBehaviour.IsGrounded();
 
-            if(HunterCharacter.CanMove() == true && HunterCharacter.IsGrounded() == true && _canMove == true)
+            if(HunterBehaviour.CanMove() == true && HunterBehaviour.IsGrounded() == true && _canMove == true)
             {
                 _xDirection = Input.GetAxisRaw("Horizontal");
             }
@@ -63,25 +68,41 @@ namespace KeepItAlive
                 CastSpell();
             }
 
-            if (Input.GetButtonDown("Jump") && HunterCharacter.IsGrounded() == true)
+            if (Input.GetButtonDown("Jump") && HunterBehaviour.IsGrounded() == true)
             {
-                HunterCharacter.Jump(HunterCharacter.JumpForce);
+                HunterBehaviour.Jump(HunterStats.JumpForce);
             }
         }
 
         private void FixedUpdate()
         {
-            HunterCharacter.Move(_xDirection, HunterCharacter.Speed);
+            HunterBehaviour.Move(_xDirection, HunterStats.Speed);
         }
 
 
         private void AnimationUpdate()
         {
-            HunterCharacter.CharacterAnimator.SetBool("isGrounded", HunterCharacter.IsGrounded());
-            HunterCharacter.CharacterAnimator.SetFloat("yVelocity", HunterCharacter.CharacterRigidbody.velocity.y);
-            HunterCharacter.CharacterAnimator.SetFloat("xVelocity", Mathf.Abs(HunterCharacter.CharacterRigidbody.velocity.x));
+            HunterStats.CharacterAnimator.SetBool("isGrounded", HunterBehaviour.IsGrounded());
+            HunterStats.CharacterAnimator.SetFloat("yVelocity", HunterBehaviour.CharacterRigidbody.velocity.y);
+            HunterStats.CharacterAnimator.SetFloat("xVelocity", Mathf.Abs(HunterBehaviour.CharacterRigidbody.velocity.x));
         }
 
+        private void CastSpell()
+        {
+            HunterStats.CharacterAnimator.SetTrigger("Shoot");
+
+            objectPooler.SpawnFromPool("Nightmare", CastSpellPoint.position, CastSpellPoint.rotation);
+        }
+        private void Attack()
+        {
+            HunterStats.CharacterAnimator.SetTrigger("Shoot");
+
+            objectPooler.SpawnFromPool("Bullet", ShootPoint.position, ShootPoint.rotation);
+        }
+
+        #endregion
+
+        #region Public Functions
         public void TakeDamage(int damage)
         {
             _currentHealth -= damage;
@@ -91,39 +112,25 @@ namespace KeepItAlive
             if (_currentHealth <= 0)
             {
                 GameCanvas.Lose();
-                HunterCharacter.SaveTime("BestHunter", DataContainer.Instance.CurrentBestHunterTime);
+                HunterData.SaveTime("BestHunter", DataContainer.Instance.CurrentBestHunterTime);
                 gameObject.SetActive(false);
             }
 
-        }
-
-        public void Attack()
-        {
-            HunterCharacter.CharacterAnimator.SetTrigger("Shoot");
-
-            objectPooler.SpawnFromPool("Bullet", ShootPoint.position, ShootPoint.rotation);
         }
 
         public void Heal(int heal)
         {
             _currentHealth += heal;
             print(_currentHealth);
-            if (_currentHealth >= HunterCharacter.MaxHealth)
+            if (_currentHealth >= _maxHealth)
             {
-                _currentHealth = HunterCharacter.MaxHealth;
+                _currentHealth = _maxHealth;
             }
 
             HealthBar.SetHealth(_currentHealth);
         }
 
-        public void CastSpell()
-        {
-            HunterCharacter.CharacterAnimator.SetTrigger("Shoot");
-
-            objectPooler.SpawnFromPool("Nightmare", CastSpellPoint.position, CastSpellPoint.rotation);
-        }
-
-
+        #endregion
     }
 }
 

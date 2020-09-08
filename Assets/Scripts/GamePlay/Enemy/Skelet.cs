@@ -1,12 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using UnityEngine.EventSystems;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace KeepItAlive
 {
     public class Skelet : MonoBehaviour, ITakeDamage,  IPooledObject
     {
         public Enemy SkeletEnemy;
+
 
         private int _currentHealth;
 
@@ -21,12 +22,18 @@ namespace KeepItAlive
 
             SkeletEnemy.EnemyAnimator.SetTrigger("TakeHit");
 
+
+
             if(_currentHealth <= 0)
             {
                 this.gameObject.SetActive(false);
             }
         }
     }
+
+    [System.Serializable]
+    public class HitEvent : UnityEvent<int> { }
 }
+
 
 

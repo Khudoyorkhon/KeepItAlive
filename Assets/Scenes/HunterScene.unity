@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -178,6 +178,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -7234125367298854532, guid: 3c804efc72ad38b43976bf737154ad59,
+        type: 3}
+      propertyPath: Timer
+      value: 
+      objectReference: {fileID: 1955319698}
     - target: {fileID: 7845506158002849169, guid: 3c804efc72ad38b43976bf737154ad59,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -526,27 +531,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &550508543 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 589910165415224746, guid: bc4161a2bdedef6439af54406ad3dd57,
+--- !u!114 &550508548 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7291634394067153631, guid: bc4161a2bdedef6439af54406ad3dd57,
     type: 3}
   m_PrefabInstance: {fileID: 1955319697}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &550508548
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 550508543}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 592163b81309952438f1bb6bd9ff0753, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Time: {fileID: 1021497319}
-  HealthBar: {fileID: 1353633531}
-  LosePanel: {fileID: 47720015}
 --- !u!1 &589670533
 GameObject:
   m_ObjectHideFlags: 0
@@ -2759,12 +2755,6 @@ MonoBehaviour:
   - {fileID: 1620484357}
   PotionPrefabSpawner: {fileID: 1011414382}
   TimeToSpawnSet: 10
---- !u!1 &1021497319 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1865410559117629989, guid: bc4161a2bdedef6439af54406ad3dd57,
-    type: 3}
-  m_PrefabInstance: {fileID: 1955319697}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1080734923
 GameObject:
   m_ObjectHideFlags: 0
@@ -2858,19 +2848,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1353633531 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 589910165438383585, guid: bc4161a2bdedef6439af54406ad3dd57,
-    type: 3}
-  m_PrefabInstance: {fileID: 1955319697}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1353633532 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 589910165438383596, guid: bc4161a2bdedef6439af54406ad3dd57,
     type: 3}
   m_PrefabInstance: {fileID: 1955319697}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1353633531}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b6c9130ea95d341488cb41aced05d8bd, type: 3}
@@ -3662,6 +3646,16 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3439511109436240817, guid: bc4161a2bdedef6439af54406ad3dd57,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 550508548}
+    - target: {fileID: 3439511109436240817, guid: bc4161a2bdedef6439af54406ad3dd57,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadScene
+      objectReference: {fileID: 0}
     - target: {fileID: 6578188714032463246, guid: bc4161a2bdedef6439af54406ad3dd57,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -3700,7 +3694,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 1955319697}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1021497319}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7c59558c89294954da2c13a7aab66da6, type: 3}

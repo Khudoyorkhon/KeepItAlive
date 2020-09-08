@@ -3393,95 +3393,6 @@ TilemapCollider2D:
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0.00001
---- !u!1001 &987911620
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 7845506158122880632, guid: 3c804efc72ad38b43976bf737154ad59,
-        type: 3}
-      propertyPath: HealthBar
-      value: 
-      objectReference: {fileID: 1186334656}
-    - target: {fileID: 7845506158122880632, guid: 3c804efc72ad38b43976bf737154ad59,
-        type: 3}
-      propertyPath: objectPooler
-      value: 
-      objectReference: {fileID: 1011414382}
-    - target: {fileID: 7845506158122880636, guid: 3c804efc72ad38b43976bf737154ad59,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7845506158122880636, guid: 3c804efc72ad38b43976bf737154ad59,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7845506158122880636, guid: 3c804efc72ad38b43976bf737154ad59,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7845506158122880636, guid: 3c804efc72ad38b43976bf737154ad59,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7845506158122880636, guid: 3c804efc72ad38b43976bf737154ad59,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7845506158122880636, guid: 3c804efc72ad38b43976bf737154ad59,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7845506158122880636, guid: 3c804efc72ad38b43976bf737154ad59,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7845506158122880636, guid: 3c804efc72ad38b43976bf737154ad59,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 7845506158122880636, guid: 3c804efc72ad38b43976bf737154ad59,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7845506158122880636, guid: 3c804efc72ad38b43976bf737154ad59,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7845506158122880636, guid: 3c804efc72ad38b43976bf737154ad59,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7845506158122880637, guid: 3c804efc72ad38b43976bf737154ad59,
-        type: 3}
-      propertyPath: HealthBar
-      value: 
-      objectReference: {fileID: 1186334656}
-    - target: {fileID: 7845506158122880638, guid: 3c804efc72ad38b43976bf737154ad59,
-        type: 3}
-      propertyPath: m_Name
-      value: Hunter
-      objectReference: {fileID: 0}
-    - target: {fileID: 7845506158122880638, guid: 3c804efc72ad38b43976bf737154ad59,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 3c804efc72ad38b43976bf737154ad59, type: 3}
 --- !u!1 &1011414381
 GameObject:
   m_ObjectHideFlags: 0
@@ -3574,7 +3485,7 @@ Transform:
   - {fileID: 450943567}
   - {fileID: 1620484357}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1017130811
 MonoBehaviour:
@@ -4317,6 +4228,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -2117757811026899427, guid: 062e84a9e22c1d04e8beeada50989722,
+        type: 3}
+      propertyPath: Timer
+      value: 
+      objectReference: {fileID: 1955319698}
     - target: {fileID: 1544867225318592295, guid: 062e84a9e22c1d04e8beeada50989722,
         type: 3}
       propertyPath: m_ApplyToSortingLayers.Array.size
@@ -4669,7 +4585,7 @@ Transform:
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
 --- !u!1 &1864068511
 GameObject:

@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using UnityEngine.EventSystems;
 using UnityEngine;
 
 
@@ -10,6 +9,7 @@ namespace KeepItAlive
         public Enemy DeamonEnemy;
 
         private int _currentHealth;
+
 
         public void OnObjectSpawn()
         {
@@ -23,7 +23,8 @@ namespace KeepItAlive
         public void TakeDamage(int damage)
         {
             _currentHealth -= damage;
-            
+
+
 
             if (_currentHealth <= 0)
             {

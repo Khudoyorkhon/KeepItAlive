@@ -45,6 +45,8 @@ GameObject:
   - component: {fileID: 1571974561088049583}
   - component: {fileID: 1571974561088049580}
   - component: {fileID: 1571974561088049579}
+  - component: {fileID: 4984227410972371044}
+  - component: {fileID: -5640642568030776938}
   m_Layer: 11
   m_Name: Mage
   m_TagString: Untagged
@@ -66,6 +68,7 @@ Transform:
   - {fileID: 1571974560052780088}
   - {fileID: 1571974561487407013}
   - {fileID: 2092362094611220068}
+  - {fileID: 2286015176344287564}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -106,7 +109,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 458492353
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 5
   m_Sprite: {fileID: 4723107735738678597, guid: 6fc66c021eec74942b4e71a3fde4dc04,
     type: 3}
@@ -155,15 +158,8 @@ MonoBehaviour:
   _baseDamage: 30
   _damageVariance: 2
   _speed: 8
-  _groundCheckRadius: 0.2
   _jumpForce: 400
-  _characterRigidbody: {fileID: 1571974561088049583}
   _characterAnimation: {fileID: 1571974561088049581}
-  _groundCheck: {fileID: 0}
-  _whatIsGround:
-    serializedVersion: 2
-    m_Bits: 256
-  Timer: {fileID: 0}
 --- !u!50 &1571974561088049583
 Rigidbody2D:
   serializedVersion: 4
@@ -197,15 +193,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d279315419b70b04cb53c37fe772ee10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MageCharacter: {fileID: 1571974561088049582}
+  MageBehaviour: {fileID: 4984227410972371044}
+  MageStats: {fileID: 1571974561088049582}
+  MageData: {fileID: -5640642568030776938}
   ObjectPooler: {fileID: 0}
   MagicBarrier: {fileID: 1571974561487407014}
   CastSpellPoint: {fileID: 1571974560052780088}
   ArcaneExlosionCooldown: 5
   AttackRate: 5
   WaterMagicCooldown: 2
+  GameLose: {fileID: 0}
   HealthBar: {fileID: 0}
   arcaneMagic: {fileID: 1571974561487407010}
+  IsWaterMageReady: 0
 --- !u!61 &1571974561088049579
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -232,6 +232,37 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.20157579, y: 0.46209082}
   m_EdgeRadius: 0
+--- !u!114 &4984227410972371044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1571974561088049586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47a69887913b5cd4aa97edb98986cd01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _groundCheckRadius: 0.2
+  _groundCheck: {fileID: 2286015176344287564}
+  _characterRigidbody: {fileID: 1571974561088049583}
+  WhatIsGround:
+    serializedVersion: 2
+    m_Bits: 256
+--- !u!114 &-5640642568030776938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1571974561088049586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf264f3918cbd964fa48c8f18cd399da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Timer: {fileID: 0}
 --- !u!1 &1571974561487407014
 GameObject:
   m_ObjectHideFlags: 0
@@ -302,7 +333,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 458492353
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 78956a549ddb8504cba2e9d3b98a80db, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
@@ -328,7 +359,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _arcaneMagicCollider2D: {fileID: 5572540430468259443}
-  _damage: 200
 --- !u!68 &5572540430468259443
 EdgeCollider2D:
   m_ObjectHideFlags: 0
@@ -363,6 +393,36 @@ EdgeCollider2D:
   - {x: 2.162393, y: -1.5620891}
   - {x: 1.3658416, y: -2.257996}
   - {x: 0.25858158, y: -2.5325258}
+--- !u!1 &2083129295372445261
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2286015176344287564}
+  m_Layer: 11
+  m_Name: GroundCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2286015176344287564
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2083129295372445261}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.25, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1571974561088049584}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7634622705582509548
 GameObject:
   m_ObjectHideFlags: 0

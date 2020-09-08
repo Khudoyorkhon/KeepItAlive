@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 6529852097911005160}
   - component: {fileID: 6529852097911005159}
   - component: {fileID: 6529852097911005163}
+  - component: {fileID: -5856291496692790501}
   m_Layer: 9
   m_Name: Skeleton
   m_TagString: Untagged
@@ -105,7 +106,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 872227691
-  m_SortingLayer: 3
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 7928858964255100155, guid: c71c03726cebdd647b3c6a46aeaecb84,
     type: 3}
@@ -193,6 +194,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2048
   EnemyAnimator: {fileID: 6529852097911005159}
+  ReachEndPoint: 0
   AttackRate: 0.3
   Health: 100
   Damage: 15
@@ -256,3 +258,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkeletEnemy: {fileID: 6529852097911005161}
+--- !u!114 &-5856291496692790501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6529852097911005155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52206c1477aae3143a0e7d90def3e691, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _text: {fileID: 0}
+  _template: -{0}

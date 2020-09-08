@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using Pathfinding;
+using UnityEngine.EventSystems;
+using UnityEngine.Events;
 
 namespace KeepItAlive
 {
@@ -14,11 +16,9 @@ namespace KeepItAlive
 
         [SerializeField] private int currentWayPoint = 0;
 
-
         [SerializeField] private bool _flyEnemy = false;
         [SerializeField] private bool _groundEnemy = false;
                     
-
         [SerializeField] private Seeker seeker = null;
         [SerializeField] private Rigidbody2D _enemyRigidbody = null;
 
@@ -26,7 +26,6 @@ namespace KeepItAlive
         private float _distanceToTarget = 0;
         private float _nextAttackTime;
         
-
         private Vector2 _direction;
 
         private Vector3 _scale;
@@ -47,17 +46,11 @@ namespace KeepItAlive
         public bool ReachEndPoint = false;
 
         public float AttackRate;
+
         public int Health, Damage;
+
         #endregion
 
-        private void Start()
-        {
-            
-            attack = false;
-            _scale = transform.localScale;
-            InvokeRepeating("UpdatePath", 0f, 0.5f);
-
-        }
         public void OnObjectSpawn()
         {
 

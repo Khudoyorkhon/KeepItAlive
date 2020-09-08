@@ -7,7 +7,7 @@ namespace KeepItAlive
     public class StopWatch : MonoBehaviour
     {
         #region Private Variable
-
+        private float _timeChanger = 0.02f;
         #endregion
 
         #region Public Variable
@@ -23,7 +23,7 @@ namespace KeepItAlive
 
         void Update()
         {
-            TimeStart += Time.deltaTime;
+            TimeStart += _timeChanger;
             StopWatchText.text = TimeStart.ToString("F2");
         }
     }

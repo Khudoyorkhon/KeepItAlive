@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace KeepItAlive
 {
@@ -13,6 +14,11 @@ namespace KeepItAlive
             ObjectActivationAndDeactivation(Time);
             ObjectActivationAndDeactivation(HealthBar);
             ObjectActivationAndDeactivation(LosePanel);
+        }
+
+        public void LoadScene(string sceneName)
+        {
+            SceneManager.LoadScene(sceneName);
         }
 
         private void ObjectActivationAndDeactivation(GameObject gameObject)

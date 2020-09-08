@@ -5,9 +5,11 @@ namespace KeepItAlive
 {
     public class Mage : MonoBehaviour, ITakeDamage, IHeal
     {
-
         #region Public Variable
-        public Character MageCharacter;
+
+        public CharacterBehaviour MageBehaviour;
+        public CharacterStats MageStats;
+        public CharacterDataContainer MageData;
 
         public ObjectPooler ObjectPooler;
 
@@ -19,8 +21,6 @@ namespace KeepItAlive
         public GameCanvasUI GameLose;
         public HealthBar HealthBar;
 
-        public StopWatch Timer;
-
         public ArcaneMagic arcaneMagic;
 
         public bool IsWaterMageReady;
@@ -28,7 +28,9 @@ namespace KeepItAlive
         #endregion
 
         #region Private Variables
+
         private int _currentHealth;
+        private int _maxHealth;
 
         private float _theScale;
         private float _xDirection;
@@ -40,13 +42,14 @@ namespace KeepItAlive
 
         #endregion
 
+        #region Private Functions
         private void Start()
         {
-            _currentHealth = MageCharacter.MaxHealth;
-            HealthBar.SetMaxHealth(MageCharacter.MaxHealth);
+            _maxHealth = MageStats.MaxHealth;
+            _currentHealth = MageStats.MaxHealth;
+            HealthBar.SetMaxHealth(MageStats.MaxHealth);
             ArcaneExplosionCooldown(ArcaneExlosionCooldown, MagicBarrier);
         }
-
 
         private void Update()
         {
@@ -109,14 +112,13 @@ namespace KeepItAlive
 
         private void FixedUpdate()
         {
-            MageCharacter.Move(_xDirection, MageCharacter.Speed);
+            MageBehaviour.Move(_xDirection, MageStats.Speed);
         }
 
         private void AnimationUpdate()
-        {           
-            MageCharacter.CharacterAnimator.SetFloat("xVelocity", Mathf.Abs(MageCharacter.CharacterRigidbody.velocity.x));           
+        {
+            MageStats.CharacterAnimator.SetFloat("xVelocity", Mathf.Abs(MageBehaviour.CharacterRigidbody.velocity.x));           
         }
-
 
         private void ArcaneExplosion(GameObject gameObject, float scale)
         {
@@ -141,7 +143,6 @@ namespace KeepItAlive
             });
         }        
 
-
         private void ScaleSmall(float scale, GameObject gameObject, float time)
         {
             arcaneMagic._arcaneMagicCollider2D.enabled = false;
@@ -152,16 +153,17 @@ namespace KeepItAlive
 
         private void WaterMagic()
         {
-            MageCharacter.CharacterAnimator.SetTrigger("Attack");
+            MageStats.CharacterAnimator.SetTrigger("Attack");
             ObjectPooler.SpawnFromPool("WaterMage", CastSpellPoint.position, CastSpellPoint.rotation);
         }
+        #endregion
 
+        #region Public Functions
         public void Attack()
         {
-            MageCharacter.CharacterAnimator.SetTrigger("Attack");
+            MageStats.CharacterAnimator.SetTrigger("Attack");
             ObjectPooler.SpawnFromPool("FireBall", CastSpellPoint.position, CastSpellPoint.rotation);
         }
-
 
         public void TakeDamage(int damage)
         {
@@ -172,7 +174,7 @@ namespace KeepItAlive
             if(_currentHealth <= 0)
             {
                 GameLose.Lose();
-                MageCharacter.SaveTime("BestMage", DataContainer.Instance.CurrentBestMageTime);
+                MageData.SaveTime("BestMage", DataContainer.Instance.CurrentBestMageTime);
                 gameObject.SetActive(false);
             }
 
@@ -181,14 +183,15 @@ namespace KeepItAlive
         public void Heal(int heal)
         {
             _currentHealth += heal;
-            if(_currentHealth >= MageCharacter.MaxHealth)
+            if(_currentHealth >= _maxHealth)
             {
-                _currentHealth = MageCharacter.MaxHealth;
+                _currentHealth = _maxHealth;
             }
 
             HealthBar.SetHealth(_currentHealth);
         }
 
+        #endregion
     }
 }
 

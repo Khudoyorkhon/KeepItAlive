@@ -1,31 +1,31 @@
-﻿using System.Threading;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace KeepItAlive
 {
     public class Rogue : MonoBehaviour,IAttack, ITakeDamage, IHeal
     {
         #region Public Variable
-        public Character RogueCharacter;
+
+        public CharacterBehaviour RogueBehaviour;
+        public CharacterStats RogueStats;
+        public CharacterDataContainer RogueData;
 
         public Transform AttackPoint;
-        public Transform WallCheck;
 
         public float AttackRange = 0.5f;
         public float AttackRate = 1f;
         public float JumpTimeCounter = 0.35f;
 
-
         public HealthBar HealthBar;
-
-        public StopWatch Timer;
 
         public GameCanvasUI GameCanvas;
 
         public LayerMask EnemyLayers;
+
         #endregion
 
         #region Private Varibale
+
         private float _xDirection;
         private float _nextAttackTime;
         private float _jumpTimeCounter;
@@ -33,20 +33,23 @@ namespace KeepItAlive
         private bool _jump = false;
 
         private int _currentHealth;
+        private int _maxHealth;
 
         #endregion
 
+        #region Private Function
+
         private void Start()
         {
-            _currentHealth = RogueCharacter.MaxHealth;
-            HealthBar.SetMaxHealth(RogueCharacter.MaxHealth);
+            _maxHealth = RogueStats.MaxHealth;
+            _currentHealth = RogueStats.MaxHealth;
+            HealthBar.SetMaxHealth(RogueStats.MaxHealth);
         }
-
         private void Update()
         {
             AnimationUpdate();
 
-            RogueCharacter.IsGrounded();
+            RogueBehaviour.IsGrounded();
 
             _xDirection = Input.GetAxisRaw("Horizontal");
 
@@ -55,17 +58,17 @@ namespace KeepItAlive
             {
                 if (Input.GetMouseButtonDown(0))
                 {
-                    Attack(Random.Range(RogueCharacter.BaseDamage - RogueCharacter.DamageVariance, RogueCharacter.BaseDamage + RogueCharacter.DamageVariance));
+                    Attack(Random.Range(RogueStats.BaseDamage - RogueStats.DamageVariance, RogueStats.BaseDamage + RogueStats.DamageVariance));
                     _nextAttackTime = Time.time + 1f / AttackRate;
                 }
             }
 
-            if(Input.GetButtonDown("Jump") && RogueCharacter.IsGrounded() == true)
+            if (Input.GetButtonDown("Jump") && RogueBehaviour.IsGrounded() == true)
             {
- 
+
                 _jump = true;
                 _jumpTimeCounter = JumpTimeCounter;
-                RogueCharacter.Jump(RogueCharacter.JumpForce);
+                RogueBehaviour.Jump(RogueStats.JumpForce);
             }
 
             if (Input.GetKey(KeyCode.Space) && _jump == true)
@@ -73,7 +76,7 @@ namespace KeepItAlive
 
                 if (_jumpTimeCounter > 0)
                 {
-                    RogueCharacter.Jump(RogueCharacter.JumpForce);
+                    RogueBehaviour.Jump(RogueStats.JumpForce);
                     _jumpTimeCounter -= Time.deltaTime;
                 }
                 else
@@ -90,14 +93,30 @@ namespace KeepItAlive
 
         private void FixedUpdate()
         {
-            RogueCharacter.Move(_xDirection, RogueCharacter.Speed);
+            RogueBehaviour.Move(_xDirection, RogueStats.Speed);
         }
+        private void AnimationUpdate()
+        {
+            RogueStats.CharacterAnimator.SetBool("isGounded", RogueBehaviour.IsGrounded());
+            RogueStats.CharacterAnimator.SetFloat("yVelocity", RogueBehaviour.CharacterRigidbody.velocity.y);
+            RogueStats.CharacterAnimator.SetFloat("Speed", Mathf.Abs(RogueBehaviour.CharacterRigidbody.velocity.x));
+        }
+
+        private void OnDrawGizmosSelected()
+        {
+            if (AttackPoint == null)
+                return;
+
+            Gizmos.DrawWireSphere(AttackPoint.position, AttackRange);
+        }
+
+        #endregion
 
         #region Public Function
 
         public void Attack(int damage)
         {
-            RogueCharacter.CharacterAnimator.SetTrigger("Attack");
+            RogueStats.CharacterAnimator.SetTrigger("Attack");
 
 
             Collider2D[] hitEnemy = Physics2D.OverlapCircleAll(AttackPoint.position, AttackRange, EnemyLayers);
@@ -105,7 +124,6 @@ namespace KeepItAlive
             foreach(Collider2D detectedEnemy in hitEnemy)
             {
                 detectedEnemy.TryGetComponent<ITakeDamage>(out ITakeDamage takeDamage);
-                print(detectedEnemy.name);
                     takeDamage?.TakeDamage(damage);
             }
 
@@ -116,14 +134,14 @@ namespace KeepItAlive
             _currentHealth -= damage;
             HealthBar.SetHealth(_currentHealth);
 
-            RogueCharacter.CharacterAnimator.SetTrigger("Hurt");
+            RogueStats.CharacterAnimator.SetTrigger("Hurt");
 
             if (_currentHealth <= 0)
             {
-                RogueCharacter.CharacterAnimator.SetBool("isDead", true);
+                RogueStats.CharacterAnimator.SetBool("isDead", true);
                
                 GameCanvas.Lose();
-                RogueCharacter.SaveTime("BestRogue", DataContainer.Instance.CurrentBestRogueTime);
+                RogueData.SaveTime("BestRogue", DataContainer.Instance.CurrentBestRogueTime);
                 gameObject.SetActive(false);
             }
 
@@ -135,33 +153,13 @@ namespace KeepItAlive
 
             HealthBar.SetHealth(_currentHealth);
 
-            if(_currentHealth >= RogueCharacter.MaxHealth)
+            if(_currentHealth >= _maxHealth)
             {
-                _currentHealth = RogueCharacter.MaxHealth;
+                _currentHealth = _maxHealth;
             }
         }
 
         #endregion
-        #region Private Function
-
-
-
-        private void AnimationUpdate()
-        {
-            RogueCharacter.CharacterAnimator.SetBool("isGounded", RogueCharacter.IsGrounded());
-            RogueCharacter.CharacterAnimator.SetFloat("yVelocity", RogueCharacter.CharacterRigidbody.velocity.y);
-            RogueCharacter.CharacterAnimator.SetFloat("Speed", Mathf.Abs(RogueCharacter.CharacterRigidbody.velocity.x));
-        }
-
-        private void OnDrawGizmosSelected()
-        {
-            if (AttackPoint == null)
-                return;
-
-            Gizmos.DrawWireSphere(AttackPoint.position, AttackRange);
-        }
-        #endregion
-
     }
 }
 

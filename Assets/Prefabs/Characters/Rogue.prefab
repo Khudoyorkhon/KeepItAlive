@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 2160824268045800553}
   - component: {fileID: 2160824268045800554}
   - component: {fileID: 2160824268045800555}
+  - component: {fileID: -3642398018595321749}
+  - component: {fileID: -2117757811026899427}
   m_Layer: 11
   m_Name: Rogue
   m_TagString: Untagged
@@ -125,15 +127,8 @@ MonoBehaviour:
   _baseDamage: 25
   _damageVariance: 6
   _speed: 15
-  _groundCheckRadius: 0.2
   _jumpForce: 12
-  _characterRigidbody: {fileID: 2160824268045800553}
   _characterAnimation: {fileID: 2160824268045800559}
-  _groundCheck: {fileID: 2160824269052521175}
-  WhatIsGround:
-    serializedVersion: 2
-    m_Bits: 256
-  Timer: {fileID: 0}
 --- !u!50 &2160824268045800553
 Rigidbody2D:
   serializedVersion: 4
@@ -167,7 +162,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b881d7a5be54ff4fbc4bebf848cefc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RogueCharacter: {fileID: 2160824268045800552}
+  RogueBehaviour: {fileID: -3642398018595321749}
+  RogueStats: {fileID: 2160824268045800552}
+  RogueData: {fileID: -2117757811026899427}
   AttackPoint: {fileID: 2160824268983742402}
   WallCheck: {fileID: 2160824269504935326}
   AttackRange: 0.5
@@ -195,6 +192,37 @@ CapsuleCollider2D:
   m_Offset: {x: -0.023540914, y: -0.07398641}
   m_Size: {x: 0.47960758, y: 0.8898957}
   m_Direction: 0
+--- !u!114 &-3642398018595321749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2160824268045800534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47a69887913b5cd4aa97edb98986cd01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _groundCheckRadius: 0.2
+  _groundCheck: {fileID: 2160824269052521175}
+  _characterRigidbody: {fileID: 2160824268045800553}
+  WhatIsGround:
+    serializedVersion: 2
+    m_Bits: 256
+--- !u!114 &-2117757811026899427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2160824268045800534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf264f3918cbd964fa48c8f18cd399da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Timer: {fileID: 0}
 --- !u!1 &2160824268983742403
 GameObject:
   m_ObjectHideFlags: 0

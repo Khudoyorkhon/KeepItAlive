@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -4208,6 +4208,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -5640642568030776938, guid: 1ac8fc1441e20674db6fc04cbd9598a5,
+        type: 3}
+      propertyPath: Timer
+      value: 
+      objectReference: {fileID: 1955319698}
     - target: {fileID: 1571974561088049580, guid: 1ac8fc1441e20674db6fc04cbd9598a5,
         type: 3}
       propertyPath: HealthBar
